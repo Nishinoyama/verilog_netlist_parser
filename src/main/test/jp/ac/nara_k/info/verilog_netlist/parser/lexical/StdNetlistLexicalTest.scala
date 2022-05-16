@@ -1,4 +1,4 @@
-package jp.ac.nara_k.info.verilog_netlist_parser.lexical
+package jp.ac.nara_k.info.verilog_netlist.parser.lexical
 
 import org.scalatest.funsuite.AnyFunSuite
 
@@ -43,7 +43,7 @@ class StdNetlistLexicalTest extends AnyFunSuite {
       """
     object lexical extends StdNetlistLexical
     import lexical._
-    import jp.ac.nara_k.info.verilog_netlist_parser.token.NetlistTokens.ErrorToken
+    import jp.ac.nara_k.info.verilog_netlist.parser.token.NetlistTokens.ErrorToken
     val tokenList = parse(tokens, b02_net)
     println(tokenList)
     assert(

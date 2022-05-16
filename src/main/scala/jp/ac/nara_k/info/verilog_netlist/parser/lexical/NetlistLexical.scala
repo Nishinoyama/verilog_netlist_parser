@@ -1,7 +1,6 @@
-package jp.ac.nara_k.info.verilog_netlist_parser.lexical
+package jp.ac.nara_k.info.verilog_netlist.parser.lexical
 
-import jp.ac.nara_k.info.verilog_netlist_parser.token.NetlistTokens
-
+import jp.ac.nara_k.info.verilog_netlist.parser.token.NetlistTokens
 import scala.collection.mutable
 import scala.util.matching.Regex
 import scala.util.parsing.combinator.RegexParsers
@@ -14,7 +13,7 @@ trait NetlistLexical extends RegexParsers {
 
   override val whiteSpace: Regex = """[ \t\r\f\n]+""".r
 
-  import NetlistTokens._
+  import jp.ac.nara_k.info.verilog_netlist.parser.token.NetlistTokens._
 
   def tokens: Parser[List[Token]] = {
     phrase(rep1(baseToken | numeric | comment | delim)) ^^ {

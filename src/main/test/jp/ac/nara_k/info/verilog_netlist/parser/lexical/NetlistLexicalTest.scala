@@ -1,6 +1,6 @@
-package jp.ac.nara_k.info.verilog_netlist_parser.lexical
+package jp.ac.nara_k.info.verilog_netlist.parser.lexical
 
-import jp.ac.nara_k.info.verilog_netlist_parser.token.NetlistTokens._
+import jp.ac.nara_k.info.verilog_netlist.parser.token.NetlistTokens._
 import org.scalatest.funsuite.AnyFunSuite
 
 class NetlistLexicalTest extends AnyFunSuite {

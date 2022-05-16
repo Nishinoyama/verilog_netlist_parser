@@ -1,4 +1,4 @@
-package jp.ac.nara_k.info.verilog_netlist_parser.token
+package jp.ac.nara_k.info.verilog_netlist.parser.token
 
 import scala.util.parsing.combinator.token.Tokens
 
