@@ -2,20 +2,7 @@ package jp.ac.nara_k.info.verilog_netlist_parser.lexical
 
 import org.scalatest.funsuite.AnyFunSuite
 
-import scala.collection.mutable.ListBuffer
-import scala.util.parsing.input.Reader
-
 class StdNetlistLexicalTest extends AnyFunSuite {
-
-  private def lex[Lexer <: StdNetlistLexical](lexer: Lexer, input: String): List[lexer.Token] = {
-    var scanner: Reader[lexer.Token] = new lexer.Scanner(input)
-    val listBuffer = ListBuffer[lexer.Token]()
-    while (!scanner.atEnd) {
-      listBuffer.append(scanner.first)
-      scanner = scanner.rest
-    }
-    listBuffer.toList
-  }
 
   test("StdNetlistLexical.parseISCAS_b02") {
     val b02_net =
@@ -54,10 +41,13 @@ class StdNetlistLexicalTest extends AnyFunSuite {
           NR3 U24 ( .A(n6), .B(stato[1]), .C(stato[0]), .Z(N36) );
         endmodule
       """
-    val lexical = new StdNetlistLexical
-    val tokens = lex(lexical, b02_net)
+    object lexical extends StdNetlistLexical
+    import lexical._
+    import jp.ac.nara_k.info.verilog_netlist_parser.token.NetlistTokens.ErrorToken
+    val tokenList = parse(tokens, b02_net)
+    println(tokenList)
     assert(
-      !tokens.exists(_.isInstanceOf[lexical.ErrorToken])
+      !tokenList.get.exists(_.isInstanceOf[ErrorToken])
     )
   }
 }

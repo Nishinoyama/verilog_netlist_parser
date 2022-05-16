@@ -1,28 +1,16 @@
 package jp.ac.nara_k.info.verilog_netlist_parser.lexical
 
+import jp.ac.nara_k.info.verilog_netlist_parser.token.NetlistTokens._
 import org.scalatest.funsuite.AnyFunSuite
 
-import scala.collection.mutable.ListBuffer
-import scala.util.parsing.input.Reader
-
 class NetlistLexicalTest extends AnyFunSuite {
-
-  private def lex[Lexer <: NetlistLexical](lexer: Lexer, input: String): List[lexer.Token] = {
-    var scanner: Reader[lexer.Token] = new lexer.Scanner(input)
-    val listBuffer = ListBuffer[lexer.Token]()
-    while (!scanner.atEnd) {
-      listBuffer.append(scanner.first)
-      scanner = scanner.rest
-    }
-    listBuffer.toList
-  }
 
   test("NetlistLexical.parseKeyword") {
     object Lexer extends NetlistLexical
     Lexer.reserved.add("module")
     import Lexer._
     assert(
-      lex(Lexer, "module b04") equals
+      parse(tokens, "module b04").get equals
         List(Keyword("module"), Identifier("b04"))
     )
   }
@@ -32,7 +20,7 @@ class NetlistLexicalTest extends AnyFunSuite {
     Lexer.delimiters.addAll("()[],.;".flatten[String](c => List(c.toString)))
     import Lexer._
     assert(
-      lex(Lexer, " NR2I U10 ( .A(linea), .B(stato[2]), .Z(n11) );") equals
+      parse(tokens, " NR2I U10 ( .A(linea), .B(stato[2]), .Z(n11) );").get equals
         List(
           Identifier("NR2I"), Identifier("U10"), Keyword("("),
           Keyword("."), Identifier("A"), Keyword("("), Identifier("linea"), Keyword(")"),
@@ -45,7 +33,8 @@ class NetlistLexicalTest extends AnyFunSuite {
 
   test("NetlistLexical.parseComment") {
     object Lexer extends NetlistLexical
-    Lexer.delimiters.addAll("()[],.;".flatten[String](c => List(c.toString)))
     import Lexer._
+    assert(parse(tokens, "// comment").get equals List())
+    assert(parse(tokens, "/* com\nment */").get equals List())
   }
 }
