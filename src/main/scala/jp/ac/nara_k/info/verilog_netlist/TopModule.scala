@@ -5,15 +5,15 @@ import jp.ac.nara_k.info.verilog_netlist.module._
 trait TopModule {
   val netlist_name: String
 
-  type InputWire = Input
-  type OutputWire = Output
-  type InnerWire = Wire
+  type Input = InputWire
+  type Output = OutputWire
+  type Wire = InnerWire
   type Submodule = InstantiatedModule
   type Assign = Assignment
 
-  val inputs: Iterable[InputWire]
-  val outputs: Iterable[OutputWire]
-  val wires: Iterable[InnerWire]
+  val inputs: Iterable[Input]
+  val outputs: Iterable[Output]
+  val wires: Iterable[Wire]
   val submodules: Iterable[Submodule]
   val assigns: Iterable[Assign]
 

@@ -184,11 +184,11 @@ trait NetlistParsers extends Parsers {
 
   private def colon = kw(":", "colon")
 
-  private def surroundedSquareBracket[T <: Any](parser: Parser[T]) = kw("[", "square bracket left") ~ parser ~ kw("]", "square bracket right") ^^ {
+  private def surroundedSquareBracket[T](parser: Parser[T]) = kw("[", "square bracket left") ~ parser ~ kw("]", "square bracket right") ^^ {
     case _ ~ s ~ _ => s
   }
 
-  private def surroundedCircleBracket[T <: Any](parser: Parser[T]) = kw("(", "circle bracket left") ~ parser ~ kw(")", "circle bracket right") ^^ {
+  private def surroundedCircleBracket[T](parser: Parser[T]) = kw("(", "circle bracket left") ~ parser ~ kw(")", "circle bracket right") ^^ {
     case _ ~ s ~ _ => s
   }
 
