@@ -4,26 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: netlist modules and their miscellanies">
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="refactor: trait into class">
       <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/IdentifiedSignal.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/InnerWire.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/InputWire.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/MultiOutputWire.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/StdTopModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/StdTopModule.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/TopModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/TopModule.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/Assignment.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/Assignment.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/Identifier.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/Input.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/MultiSignal.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/InstantiatedModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/InstantiatedModule.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/MultiInput.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/MultiInputWire.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/MultiOutput.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/MultiWire.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/MultiWire.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/Output.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/Wire.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/OutputWire.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsers.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsers.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/TopModuleTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/TopModuleTest.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +192,7 @@
       <workItem from="1652675798116" duration="34982000" />
       <workItem from="1653011716277" duration="578000" />
       <workItem from="1653036689496" duration="831000" />
-      <workItem from="1653270798276" duration="3914000" />
+      <workItem from="1653270798276" duration="3953000" />
     </task>
     <task id="LOCAL-00001" summary="idea: specify test directory">
       <created>1652423252083</created>
@@ -253,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652952122500</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="refactor: trait into class">
+      <created>1653274901018</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1653274901018</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,7 +268,8 @@
     <MESSAGE value="change: package hierarchy, inferior to verilog_netlist" />
     <MESSAGE value="add: now, tokens are parse-able" />
     <MESSAGE value="add: netlist modules and their miscellanies" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: netlist modules and their miscellanies" />
+    <MESSAGE value="refactor: trait into class" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: trait into class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
