@@ -14,14 +14,11 @@ class TopModuleTest extends AnyFunSuite {
     val z = new MultiOutputWire("z", (0, 3))
     val n1 = new InnerWire("n1")
     val n2 = new InnerWire("n2")
-    val stato = new MultiWire("stato", (0, 1))
+    val stato = new MultiInnerWire("stato", (0, 1))
     TopModuleObject.inputs.addAll(List(a, b, c))
     TopModuleObject.outputs.addAll(List(x, y, z))
     TopModuleObject.wires.addAll(List(n1, n2, stato))
-    TopModuleObject.assigns.addAll(List(
-      new Assignment(a, b),
-      new Assignment(y, b),
-    ))
+    TopModuleObject.assigns.addAll(List(new Assignment(a, b), new Assignment(y, b)))
     println(TopModuleObject.toString)
   }
 }

@@ -5,9 +5,9 @@ import jp.ac.nara_k.info.verilog_netlist.module._
 trait TopModule {
   val netlist_name: String
 
-  type Input = InputWire
-  type Output = OutputWire
-  type Wire = InnerWire
+  type Input = IdentifiedSignal
+  type Output = IdentifiedSignal
+  type Wire = IdentifiedSignal
   type Submodule = InstantiatedModule
   type Assign = Assignment
 

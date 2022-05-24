@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="refactor: trait into class">
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="change: wire hierarchy">
       <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/TopModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/TopModule.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsers.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsers.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/TopModuleTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/TopModuleTest.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +100,7 @@
       <command value=":w" />
     </option>
   </component>
-  <component name="RunManager" selected="ScalaTest.TopModuleTest.netlist">
+  <component name="RunManager" selected="ScalaTest.NetlistParsersTest (1)">
     <configuration name="NetlistParsersTest (1)" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
       <module name="verilog_netlist_parser" />
       <option name="allowRunningInParallel" value="false" />
@@ -171,9 +175,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="ScalaTest.NetlistParsersTest (1)" />
         <item itemvalue="ScalaTest.TopModuleTest.netlist" />
         <item itemvalue="ScalaTest.NetlistTest" />
-        <item itemvalue="ScalaTest.NetlistParsersTest (1)" />
         <item itemvalue="ScalaTest.'test' の ScalaTest" />
         <item itemvalue="ScalaTest.StdNetlistLexicalTest" />
       </list>
@@ -192,7 +196,7 @@
       <workItem from="1652675798116" duration="34982000" />
       <workItem from="1653011716277" duration="578000" />
       <workItem from="1653036689496" duration="831000" />
-      <workItem from="1653270798276" duration="3953000" />
+      <workItem from="1653270798276" duration="13749000" />
     </task>
     <task id="LOCAL-00001" summary="idea: specify test directory">
       <created>1652423252083</created>
@@ -243,7 +247,21 @@
       <option name="project" value="LOCAL" />
       <updated>1653274901018</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="version: 0.2.0">
+      <created>1653274940138</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1653274940138</updated>
+    </task>
+    <task id="LOCAL-00009" summary="change: wire hierarchy">
+      <created>1653383266898</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1653383266898</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,7 +272,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -269,14 +299,16 @@
     <MESSAGE value="add: now, tokens are parse-able" />
     <MESSAGE value="add: netlist modules and their miscellanies" />
     <MESSAGE value="refactor: trait into class" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: trait into class" />
+    <MESSAGE value="version: 0.2.0" />
+    <MESSAGE value="change: wire hierarchy" />
+    <option name="LAST_COMMIT_MESSAGE" value="change: wire hierarchy" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsers.scala</url>
-          <line>61</line>
+          <line>67</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

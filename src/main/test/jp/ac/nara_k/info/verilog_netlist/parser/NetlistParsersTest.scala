@@ -1,12 +1,13 @@
 package jp.ac.nara_k.info.verilog_netlist.parser
 
+import jp.ac.nara_k.info.verilog_netlist.module.MultiInnerWire
 import jp.ac.nara_k.info.verilog_netlist.parser.input.NetlistTokenReader
 import jp.ac.nara_k.info.verilog_netlist.parser.lexical.StdNetlistLexical
 import org.scalatest.funsuite.AnyFunSuite
 
 class NetlistParsersTest extends AnyFunSuite {
 
-  test("StdNetlistLexical.parseISCAS_b02") {
+  test("NetlistParsers.parseISCAS_b02") {
     val b02_net =
       """
 /////////////////////////////////////////////////////////////
@@ -71,5 +72,8 @@ endmodule
     val reader = new NetlistTokenReader(tokenList.get)
     val parseResult = parser.module(reader)
     println(parseResult)
+    println(parser.wires)
+    println(parser.assigns)
+    println(parser.wires)
   }
 }
