@@ -1,31 +1,25 @@
 package jp.ac.nara_k.info.verilog_netlist.parser
 
-import jp.ac.nara_k.info.verilog_netlist.module._
+import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst
 import jp.ac.nara_k.info.verilog_netlist.parser.token.NetlistTokens
 
-import scala.collection.mutable
 import scala.util.parsing.combinator.Parsers
 
 trait NetlistParsers extends Parsers {
   override type Elem = NetlistTokens.Token
 
-  val wires = new mutable.HashSet[IdentifiedSignal]
-  val assigns = new mutable.HashSet[Assignment]
-  val submodules = new mutable.HashSet[InstantiatedModule]
-
   import NetlistTokens._
 
   // Declarations
-  def module: Parser[String] = {
+  def module: Parser[NetlistAst.Module] = {
     kw("module") ~ nameOfModule ~ opt(listOfPorts) ~ semicolon ~ rep(moduleItem) ~ kw("endmodule") ^^ {
-      case _ ~ name ~ ports ~ _ ~ items ~ _ => "module " + name + "(" + ports.getOrElse(List()).mkString(",") + ")\n" + items.mkString("\n") + "\nendmodule"
+      case _ ~ name ~ Some(ports) ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = ports, item = items)
+      case _ ~ name ~ None ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = new Array[String](0), item = items)
     }
   }
 
   def nameOfModule: Parser[String] = {
-    primitiveIdentifier ^^ {
-      _.chars
-    }
+    primitiveIdentifier
   }
 
   def listOfPorts: Parser[List[String]] = {
@@ -59,93 +53,85 @@ trait NetlistParsers extends Parsers {
   }
 
   def nameOfVariable: Parser[String] = {
-    primitiveIdentifier ^^ {
-      _.chars
-    }
+    primitiveIdentifier
   }
 
-  def moduleItem: Parser[String] = {
-    inputDeclaration | outputDeclaration | wireDeclaration | moduleInstantiation | continuousAssign ^^ {
-      _.mkString(",")
-    }
+  def moduleItem: Parser[NetlistAst.ModuleItem] = {
+    inputDeclaration ^^ {
+      NetlistAst.InputsDeclaration
+    } | outputDeclaration ^^ {
+      NetlistAst.OutputsDeclaration
+    } | wireDeclaration ^^ {
+      NetlistAst.WiresDeclaration
+    } | continuousAssign ^^ {
+      NetlistAst.ContinuousAssignments
+    } | moduleInstantiation
   }
 
-  def inputDeclaration: Parser[String] = {
+  def inputDeclaration: Parser[List[NetlistAst.Declaration]] = {
     kw("input") ~ opt(range) ~ listOfVariables ~ semicolon ^^ {
-      case _ ~ Some(rng) ~ vars ~ _ =>
-        this.wires.addAll(vars.map(new MultiInputWire(_, rng)))
-        "input " + rng + " " + vars.mkString(",")
-      case _ ~ None ~ vars ~ _ =>
-        this.wires.addAll(vars.map(new InputWire(_)))
-        "input " + vars.mkString(",")
+      case _ ~ Some(rng) ~ vars ~ _ => vars.map(NetlistAst.ArrayedIdentifier(_, rng))
+      case _ ~ None ~ vars ~ _ => vars.map(NetlistAst.SingleIdentifier)
     }
   }
 
-  def outputDeclaration: Parser[String] = {
+  def outputDeclaration: Parser[List[NetlistAst.Declaration]] = {
     kw("output") ~ opt(range) ~ listOfVariables ~ semicolon ^^ {
-      case _ ~ Some(rng) ~ vars ~ _ =>
-        this.wires.addAll(vars.map(new MultiOutputWire(_, rng)))
-        "output " + rng + " " + vars.mkString(",")
-      case _ ~ None ~ vars ~ _ =>
-        this.wires.addAll(vars.map(new OutputWire(_)))
-        "output " + vars.mkString(",")
+      case _ ~ Some(rng) ~ vars ~ _ => vars.map(NetlistAst.ArrayedIdentifier(_, rng))
+      case _ ~ None ~ vars ~ _ => vars.map(NetlistAst.SingleIdentifier)
     }
   }
 
-  def wireDeclaration: Parser[String] = {
+  def wireDeclaration: Parser[List[NetlistAst.Declaration]] = {
     kw("wire") ~ opt(range) ~ listOfVariables ~ semicolon ^^ {
-      case _ ~ Some(rng) ~ vars ~ _ =>
-        this.wires.addAll(vars.map(new MultiInnerWire(_, rng)))
-        "wire " + rng + vars.mkString(",")
-      case _ ~ None ~ vars ~ _ =>
-        this.wires.addAll(vars.map(new InnerWire(_)))
-        "wire " + vars.mkString(",")
+      case _ ~ Some(rng) ~ vars ~ _ => vars.map(NetlistAst.ArrayedIdentifier(_, rng))
+      case _ ~ None ~ vars ~ _ => vars.map(NetlistAst.SingleIdentifier)
     }
   }
 
-  def continuousAssign: Parser[List[(String, String)]] = {
+  def continuousAssign: Parser[List[NetlistAst.Assignment]] = {
     kw("assign") ~ assignment ~ rep(comma ~ assignment) ~ semicolon ^^ {
-      case _ ~ asn ~ tail ~ _ => asn :: tail.map(_._2)
+      case _ ~ asn ~ tail ~ _ => (asn :: tail.map(_._2)).map {
+        x => NetlistAst.Assignment(lvalue = x._1, expression = x._2)
+      }
     }
   }
 
   // Module Instantiations
-  def moduleInstantiation: Parser[String] = {
+  def moduleInstantiation: Parser[NetlistAst.ModuleInstance] = {
     nameOfModule ~ moduleInstance ~ semicolon ^^ {
-      case name ~ instance ~ _ =>
-        submodules.add(new InstantiatedModule(name, instance._1, instance._2, instance._2)) // TODO: partition instance input and output port
-        name + " " + instance
+      case name ~ instance ~ _ => NetlistAst.ModuleInstance(module_name = name, declaration = instance._1, port_connections = instance._2)
     }
   }
 
-  def moduleInstance: Parser[(String, List[(String, String)])] = {
+  def moduleInstance: Parser[(NetlistAst.Declaration, List[(String, NetlistAst.Expression)])] = {
     nameOfInstance ~ surroundedCircleBracket(opt(listOfModuleConnections)) ^^ {
       case name ~ Some(tail) => (name, tail)
       case name ~ None => (name, List())
     }
   }
 
-  def nameOfInstance: Parser[String] = {
+  def nameOfInstance: Parser[NetlistAst.Declaration] = {
     primitiveIdentifier ~ opt(range) ^^ {
-      case id ~ Some(rng) => id.chars + rng
-      case id ~ None => id.chars
+      case id ~ Some(rng) => NetlistAst.ArrayedIdentifier(id, rng)
+      case id ~ None => NetlistAst.SingleIdentifier(id)
     }
   }
 
-  def listOfModuleConnections: Parser[List[(String, String)]] = {
+  def listOfModuleConnections: Parser[List[(String, NetlistAst.Expression)]] = {
     namedPortConnection ~ rep(comma ~ namedPortConnection) ^^ {
       case head ~ tail => head :: tail.map { case _ ~ port => port }
     }
   }
 
-  def namedPortConnection: Parser[(String, String)] = {
+  def namedPortConnection: Parser[(String, NetlistAst.Expression)] = {
     dot ~ primitiveIdentifier ~ surroundedCircleBracket(expression) ^^ {
-      case _ ~ port_name ~ ex => (port_name.chars, ex)
+      case _ ~ port_name ~ ex => (port_name, ex)
     }
   }
 
   // Behavioral Statements
-  def assignment: Parser[(String, String)] = {
+  def assignment: Parser[(NetlistAst.Identifier, NetlistAst.Expression)] = {
     lvalue ~ kw("=", "equal") ~ expression ^^ {
       case l_val ~ _ ~ exp => (l_val, exp)
     }
@@ -153,45 +139,51 @@ trait NetlistParsers extends Parsers {
 
   def listOfVariables: Parser[List[String]] = {
     primitiveIdentifier ~ rep(comma ~ primitiveIdentifier) ^^ {
-      case first ~ tail => first.chars :: tail.map { case _ ~ id => id.chars }
+      case first ~ tail => first :: tail.map { case _ ~ id => id }
     }
   }
 
   def range: Parser[(Int, Int)] = {
     surroundedSquareBracket(number ~ colon ~ number) ^^ {
-      case l_range ~ _ ~ r_range => (r_range.chars.toInt, l_range.chars.toInt)
+      case l_range ~ _ ~ r_range => (r_range, l_range)
     }
   }
 
   // Expression
 
-  def lvalue: Parser[String] = {
+  def lvalue: Parser[NetlistAst.Identifier] = {
     identifier ^^ {
-      identity
+      NetlistAst.SingleIdentifier
     } |
-      identifier ~ surroundedSquareBracket(number) ^^ { case id ~ nm => id + nm.chars }
+      indexed_identifier
   }
 
-  def expression: Parser[String] = {
+  def expression: Parser[NetlistAst.Expression] = {
     number ^^ {
-      _.chars
-    } |
-      identifier ~ surroundedSquareBracket(expression) ^^ {
-        case id ~ ex => id + "[" + ex + "]"
-      } |
-      identifier
+      NetlistAst.Number
+    } | indexed_identifier ^^ {
+      identity
+    } | identifier ^^ {
+      NetlistAst.SingleIdentifier
+    }
+  }
+
+  def indexed_identifier: Parser[NetlistAst.IndexedIdentifier] = {
+    identifier ~ surroundedSquareBracket(number) ^^ { case id ~ nm =>
+      NetlistAst.IndexedIdentifier(id, nm)
+    }
   }
 
   // General
 
   def identifier: Parser[String] = {
     primitiveIdentifier ~ rep(dot ~ primitiveIdentifier) ^^ {
-      case root ~ tail => tail.map { case _ ~ id => id.chars }.fold(root.chars)((l, r) => l + "." + r)
+      case root ~ tail => tail.map { case _ ~ id => id }.fold(root)((l, r) => l + "." + r)
     }
   }
 
-  private def primitiveIdentifier: Parser[Identifier] = {
-    accept("identifier", { case id@Identifier(_) => id })
+  private def primitiveIdentifier: Parser[String] = {
+    accept("identifier", { case id@Identifier(_) => id.chars })
   }
 
   private def kw(keywordChars: String, excepted: String = ""): Parser[Keyword] = {
@@ -214,7 +206,7 @@ trait NetlistParsers extends Parsers {
     case _ ~ s ~ _ => s
   }
 
-  private def number: Parser[NumericLit] = {
-    accept("number literal", { case nm@NumericLit(_) => nm })
+  private def number: Parser[Int] = {
+    accept("number literal", { case nm@NumericLit(_) => nm.chars.toInt })
   }
 }

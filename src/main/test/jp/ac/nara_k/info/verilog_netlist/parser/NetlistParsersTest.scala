@@ -72,8 +72,5 @@ endmodule
     val reader = new NetlistTokenReader(tokenList.get)
     val parseResult = parser.module(reader)
     println(parseResult)
-    println(parser.wires)
-    println(parser.assigns)
-    println(parser.wires)
   }
 }
