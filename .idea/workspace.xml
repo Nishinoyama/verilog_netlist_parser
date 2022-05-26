@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="move: top module">
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="version: 0.3.0">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/NetlistGraph.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/NetlistNode.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyModuleGraph.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedSingleAssignmentOnlyModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedSingleAssignmentOnlyModule.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

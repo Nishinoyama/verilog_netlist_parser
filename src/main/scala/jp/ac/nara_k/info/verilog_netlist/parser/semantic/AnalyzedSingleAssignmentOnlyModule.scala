@@ -16,6 +16,16 @@ class AnalyzedSingleAssignmentOnlyModule(module: Module) {
     (module_name, convertNonArrayed(declaration).ident, port_connections.map { x => (x._1, convertExpression(x._2)) })
   }
 
+  def getInputs: Seq[String] = this.inputs
+
+  def getOutputs: Seq[String] = this.outputs
+
+  def getWires: Seq[String] = this.wires
+
+  def getAssignments: Seq[(String, Expression)] = this.assignments
+
+  def getModules: Seq[(String, String, Seq[(String, Expression)])] = this.instantiatedModules
+
   override def toString: String = {
     s"inputs: $inputs\noutputs: $outputs\nwires: $wires\nassignments: $assignments\ninstantiatedModules: $instantiatedModules"
   }
