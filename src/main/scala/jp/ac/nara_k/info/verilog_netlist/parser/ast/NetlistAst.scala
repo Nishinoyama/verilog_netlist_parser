@@ -8,7 +8,7 @@ object NetlistAst {
     val ident: String
   }
 
-  trait Declaration
+  trait Declaration extends Identifier
 
   trait Arrayed {
     val range: (Int, Int)
@@ -16,7 +16,7 @@ object NetlistAst {
 
   trait Expression
 
-  case class Module(name: String, ports: Seq[String], item: Seq[ModuleItem])
+  case class Module(name: String, ports: Seq[String], items: Seq[ModuleItem])
 
   case class InputDeclaration(inputs: Declaration) extends ModuleItem
 
@@ -26,13 +26,13 @@ object NetlistAst {
 
   case class Assignment(lvalue: Identifier, expression: Expression) extends ModuleItem
 
-//  case class ModulesDeclaration(modules: Seq[ModuleInstance]) extends ModuleItem
+  //  case class ModulesDeclaration(modules: Seq[ModuleInstance]) extends ModuleItem
 
   case class ModuleInstance(module_name: String, declaration: Declaration, port_connections: Seq[(String, Expression)]) extends ModuleItem
 
-  case class SingleIdentifier(ident: String) extends Identifier with Expression with Declaration
+  case class SingleIdentifier(ident: String) extends Declaration with Expression
 
-  case class ArrayedIdentifier(ident: String, range: (Int, Int)) extends Identifier with Arrayed with Declaration
+  case class ArrayedIdentifier(ident: String, range: (Int, Int)) extends Declaration with Arrayed
 
   case class IndexedIdentifier(ident: String, index: Int) extends Identifier with Expression
 

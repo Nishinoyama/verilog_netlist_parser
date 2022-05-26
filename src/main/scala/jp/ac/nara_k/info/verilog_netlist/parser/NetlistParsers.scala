@@ -13,8 +13,8 @@ trait NetlistParsers extends Parsers {
   // Declarations
   def module: Parser[NetlistAst.Module] = {
     kw("module") ~ nameOfModule ~ opt(listOfPorts) ~ semicolon ~ rep(moduleItem) ~ kw("endmodule") ^^ {
-      case _ ~ name ~ Some(ports) ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = ports, item = items.flatten)
-      case _ ~ name ~ None ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = new Array[String](0), item = items.flatten)
+      case _ ~ name ~ Some(ports) ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = ports, items = items.flatten)
+      case _ ~ name ~ None ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = new Array[String](0), items = items.flatten)
     }
   }
 
