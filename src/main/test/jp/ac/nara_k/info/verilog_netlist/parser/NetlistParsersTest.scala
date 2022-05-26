@@ -1,8 +1,8 @@
 package jp.ac.nara_k.info.verilog_netlist.parser
 
-import jp.ac.nara_k.info.verilog_netlist.module.MultiInnerWire
 import jp.ac.nara_k.info.verilog_netlist.parser.input.NetlistTokenReader
 import jp.ac.nara_k.info.verilog_netlist.parser.lexical.StdNetlistLexical
+import jp.ac.nara_k.info.verilog_netlist.parser.semantic.AnalyzedSingleAssignmentOnlyModule
 import org.scalatest.funsuite.AnyFunSuite
 
 class NetlistParsersTest extends AnyFunSuite {
@@ -61,16 +61,16 @@ module b01 ( line1, line2, reset, outp, overflw, clock, test_si, test_so,
 endmodule
       """
     object lexical extends StdNetlistLexical
-    import lexical._
     import jp.ac.nara_k.info.verilog_netlist.parser.token.NetlistTokens.ErrorToken
+    import lexical._
     val tokenList = parse(tokens, b02_net)
-    println(tokenList)
-    assert(
-      !tokenList.get.exists(_.isInstanceOf[ErrorToken])
-    )
+    //    println(tokenList)
+    assert(!tokenList.get.exists(_.isInstanceOf[ErrorToken]))
     object parser extends NetlistParsers
     val reader = new NetlistTokenReader(tokenList.get)
     val parseResult = parser.module(reader)
-    println(parseResult)
+    //    println(parseResult)
+    val analyzedModule = new AnalyzedSingleAssignmentOnlyModule(parseResult.get)
+    println(analyzedModule)
   }
 }
