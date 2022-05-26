@@ -18,17 +18,15 @@ object NetlistAst {
 
   case class Module(name: String, ports: Seq[String], item: Seq[ModuleItem])
 
-  case class InputsDeclaration(inputs: Seq[Declaration]) extends ModuleItem
+  case class InputDeclaration(inputs: Declaration) extends ModuleItem
 
-  case class OutputsDeclaration(outputs: Seq[Declaration]) extends ModuleItem
+  case class OutputDeclaration(outputs: Declaration) extends ModuleItem
 
-  case class WiresDeclaration(wires: Seq[Declaration]) extends ModuleItem
+  case class WireDeclaration(wires: Declaration) extends ModuleItem
 
-  case class ContinuousAssignments(assignments: Seq[Assignment]) extends ModuleItem
+  case class Assignment(lvalue: Identifier, expression: Expression) extends ModuleItem
 
-  case class Assignment(lvalue: Identifier, expression: Expression)
-
-  case class ModulesDeclaration(modules: Seq[ModuleInstance]) extends ModuleItem
+//  case class ModulesDeclaration(modules: Seq[ModuleInstance]) extends ModuleItem
 
   case class ModuleInstance(module_name: String, declaration: Declaration, port_connections: Seq[(String, Expression)]) extends ModuleItem
 

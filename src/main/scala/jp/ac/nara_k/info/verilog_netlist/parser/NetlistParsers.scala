@@ -13,8 +13,8 @@ trait NetlistParsers extends Parsers {
   // Declarations
   def module: Parser[NetlistAst.Module] = {
     kw("module") ~ nameOfModule ~ opt(listOfPorts) ~ semicolon ~ rep(moduleItem) ~ kw("endmodule") ^^ {
-      case _ ~ name ~ Some(ports) ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = ports, item = items)
-      case _ ~ name ~ None ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = new Array[String](0), item = items)
+      case _ ~ name ~ Some(ports) ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = ports, item = items.flatten)
+      case _ ~ name ~ None ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = new Array[String](0), item = items.flatten)
     }
   }
 
@@ -56,16 +56,18 @@ trait NetlistParsers extends Parsers {
     primitiveIdentifier
   }
 
-  def moduleItem: Parser[NetlistAst.ModuleItem] = {
+  def moduleItem: Parser[List[NetlistAst.ModuleItem]] = {
     inputDeclaration ^^ {
-      NetlistAst.InputsDeclaration
+      _ map NetlistAst.InputDeclaration
     } | outputDeclaration ^^ {
-      NetlistAst.OutputsDeclaration
+      _ map NetlistAst.OutputDeclaration
     } | wireDeclaration ^^ {
-      NetlistAst.WiresDeclaration
+      _ map NetlistAst.WireDeclaration
     } | continuousAssign ^^ {
-      NetlistAst.ContinuousAssignments
-    } | moduleInstantiation
+      identity
+    } | moduleInstantiation ^^ {
+      List(_)
+    }
   }
 
   def inputDeclaration: Parser[List[NetlistAst.Declaration]] = {
