@@ -1,6 +1,4 @@
-package jp.ac.nara_k.info.verilog_netlist
-
-import jp.ac.nara_k.info.verilog_netlist.module._
+package jp.ac.nara_k.info.verilog_netlist.module
 
 trait TopModule {
   val netlist_name: String

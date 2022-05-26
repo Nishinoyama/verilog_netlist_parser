@@ -1,4 +1,4 @@
-package jp.ac.nara_k.info.verilog_netlist
+package jp.ac.nara_k.info.verilog_netlist.module
 
 import scala.collection.mutable
 
