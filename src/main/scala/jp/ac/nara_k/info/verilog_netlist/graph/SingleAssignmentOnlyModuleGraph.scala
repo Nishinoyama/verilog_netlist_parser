@@ -52,12 +52,11 @@ class SingleAssignmentOnlyModuleGraph(module: AnalyzedSingleAssignmentOnlyModule
   }
 
   /** *
-   * relationship of l and r
-   * Fun fact: relation(l,r) == -relation(r,l)
    *
-   * @param l ModuleIdentity
-   * @param r ModuleIdentity
-   * @return 1 if the subgraph of l contains r, -1 if the subgraph of r contains l, 0 otherwise
+   * @param l String of module identity
+   * @param r String of module identity
+   * @return 1 if the subgraph of l contains r, -1 if the subgraph of r contains l,
+   *         2 if the two subgraph have NO common nodes, 0 otherwise
    */
   def relation(l: String, r: String): Int = {
     val l_sub = search(l)
@@ -65,6 +64,7 @@ class SingleAssignmentOnlyModuleGraph(module: AnalyzedSingleAssignmentOnlyModule
     else {
       val r_sub = search(r)
       if (r_sub.contains(l)) -1
+      else if ((l_sub & r_sub).isEmpty) 2
       else 0
     }
   }
