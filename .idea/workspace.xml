@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="version: 0.3.0">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: relation that whether the two subgraph have common nodes">
+      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyModuleGraph.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyModuleGraph.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +195,7 @@
       <workItem from="1653036689496" duration="831000" />
       <workItem from="1653270798276" duration="13749000" />
       <workItem from="1653525165257" duration="8202000" />
-      <workItem from="1653618841563" duration="1271000" />
+      <workItem from="1653618841563" duration="1294000" />
     </task>
     <task id="LOCAL-00001" summary="idea: specify test directory">
       <created>1652423252083</created>
@@ -338,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653533378253</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="add: relation that whether the two subgraph have common nodes">
+      <created>1653620520540</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1653620520540</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,7 +391,8 @@
     <MESSAGE value="add: SingleIdentifier converter, to simplify circuit" />
     <MESSAGE value="add: analyze circuit with single assignments only assumption" />
     <MESSAGE value="move: top module" />
-    <option name="LAST_COMMIT_MESSAGE" value="move: top module" />
+    <MESSAGE value="add: relation that whether the two subgraph have common nodes" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: relation that whether the two subgraph have common nodes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
