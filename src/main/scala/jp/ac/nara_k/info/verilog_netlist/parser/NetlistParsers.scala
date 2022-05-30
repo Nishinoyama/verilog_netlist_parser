@@ -154,10 +154,10 @@ trait NetlistParsers extends Parsers {
   // Expression
 
   def lvalue: Parser[NetlistAst.Identifier] = {
-    identifier ^^ {
-      NetlistAst.SingleIdentifier
-    } |
-      indexed_identifier
+    indexed_identifier |
+      identifier ^^ {
+        NetlistAst.SingleIdentifier
+      }
   }
 
   def expression: Parser[NetlistAst.Expression] = {
