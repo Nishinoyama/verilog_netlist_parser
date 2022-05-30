@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: relation that whether the two subgraph have common nodes">
-      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: b17 test&#10;&#10;we won't add b17_net.v source due to some reasons.">
+      <change afterPath="$PROJECT_DIR$/b17_net.v" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -195,7 +196,10 @@
       <workItem from="1653036689496" duration="831000" />
       <workItem from="1653270798276" duration="13749000" />
       <workItem from="1653525165257" duration="8202000" />
-      <workItem from="1653618841563" duration="1294000" />
+      <workItem from="1653618841563" duration="2673000" />
+      <workItem from="1653888955241" duration="38000" />
+      <workItem from="1653889481465" duration="169000" />
+      <workItem from="1653889923426" duration="4034000" />
     </task>
     <task id="LOCAL-00001" summary="idea: specify test directory">
       <created>1652423252083</created>
@@ -344,7 +348,35 @@
       <option name="project" value="LOCAL" />
       <updated>1653620520540</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="version: 0.3.1">
+      <created>1653620543760</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1653620543760</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fix: prior longer tokens">
+      <created>1653893722992</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1653893722992</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fix: port assign can be Number">
+      <created>1653893765049</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1653893765049</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add: b17 test&#10;&#10;we won't add b17_net.v source due to some reasons.">
+      <created>1653893839046</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1653893839046</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -392,7 +424,11 @@
     <MESSAGE value="add: analyze circuit with single assignments only assumption" />
     <MESSAGE value="move: top module" />
     <MESSAGE value="add: relation that whether the two subgraph have common nodes" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: relation that whether the two subgraph have common nodes" />
+    <MESSAGE value="version: 0.3.1" />
+    <MESSAGE value="fix: prior longer tokens" />
+    <MESSAGE value="fix: port assign can be Number" />
+    <MESSAGE value="add: b17 test&#10;&#10;we won't add b17_net.v source due to some reasons." />
+    <option name="LAST_COMMIT_MESSAGE" value="add: b17 test&#10;&#10;we won't add b17_net.v source due to some reasons." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
