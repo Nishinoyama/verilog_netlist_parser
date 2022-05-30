@@ -30,7 +30,10 @@ class SingleAssignmentOnlyModuleGraph(module: AnalyzedSingleAssignmentOnlyModule
         }
       }
   }
-  module.getAssignments.foreach { case (lvalue, SingleIdentifier(ident)) => edges(lvalue) += ident }
+  module.getAssignments.foreach {
+    case (lvalue, SingleIdentifier(ident)) => edges(lvalue) += ident
+    case _ => ()
+  }
 
   override def toString: String = {
     s"$nodes\n${edges.filter(x => x._2.nonEmpty)}"
