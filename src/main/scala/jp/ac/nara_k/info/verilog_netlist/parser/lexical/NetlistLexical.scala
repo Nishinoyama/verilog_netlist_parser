@@ -26,10 +26,14 @@ trait NetlistLexical extends RegexParsers {
       processIdent
     }
 
-  def numeric: Parser[NumericLit] =
+  def numeric: Parser[NumericLit] = {
+    """1'[bB][01]""".r ^^ {
+      x => NumericLit(x.drop(3))
+    } |
     """\d+""".r ^^ {
       NumericLit
     }
+  }
 
   def comment: Parser[Token] = ("""(?s)/\*.*\*/""".r | """//.*""".r) ^^ { _ => Keyword("") }
 
