@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: b17 test&#10;&#10;we won't add b17_net.v source due to some reasons.">
-      <change afterPath="$PROJECT_DIR$/b17_net.v" afterDir="false" />
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="refactor: rep comma can be handled with repsep">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/b17_net.v" beforeDir="false" afterPath="$PROJECT_DIR$/b17_net.v" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +113,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="NetlistParsersTest.NetlistParsers.identifier" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="verilog_netlist_parser" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="testKind" value="Test name" />
+      <option name="testClassPath" value="jp.ac.nara_k.info.verilog_netlist.parser.NetlistParsersTest" />
+      <option name="testName" value="NetlistParsers.identifier" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="NetlistTest" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
       <module name="verilog_netlist_parser" />
       <option name="allowRunningInParallel" value="false" />
@@ -152,32 +167,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="'test' の ScalaTest" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
-      <module name="verilog_netlist_parser" />
-      <option name="allowRunningInParallel" value="false" />
-      <option name="projectPathOnTarget" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <option name="testKind" value="All in package" />
-      <option name="classBuf">
-        <list>
-          <option value="jp.ac.nara_k.info.verilog_netlist.parser.NetlistParsersTest" />
-          <option value="jp.ac.nara_k.info.verilog_netlist.parser.lexical.NetlistLexicalTest" />
-          <option value="jp.ac.nara_k.info.verilog_netlist.parser.lexical.StdNetlistLexicalTest" />
-        </list>
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="ScalaTest.NetlistParsersTest (1)" />
+        <item itemvalue="ScalaTest.NetlistParsersTest.NetlistParsers.identifier" />
         <item itemvalue="ScalaTest.TopModuleTest.netlist" />
         <item itemvalue="ScalaTest.StdNetlistLexicalTest" />
         <item itemvalue="ScalaTest.NetlistTest" />
-        <item itemvalue="ScalaTest.'test' の ScalaTest" />
       </list>
     </recent_temporary>
   </component>
@@ -199,7 +195,8 @@
       <workItem from="1653618841563" duration="2673000" />
       <workItem from="1653888955241" duration="38000" />
       <workItem from="1653889481465" duration="169000" />
-      <workItem from="1653889923426" duration="4034000" />
+      <workItem from="1653889923426" duration="6183000" />
+      <workItem from="1653986448991" duration="5773000" />
     </task>
     <task id="LOCAL-00001" summary="idea: specify test directory">
       <created>1652423252083</created>
@@ -376,7 +373,35 @@
       <option name="project" value="LOCAL" />
       <updated>1653893839046</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="add: b17 test&#10;&#10;we won't add ACTUAL b17_net.v source due to some reasons.">
+      <created>1653894016704</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1653894016704</updated>
+    </task>
+    <task id="LOCAL-00027" summary="add: b17 test&#10;&#10;we won't add ACTUAL b17_net.v source due to some reasons.">
+      <created>1653894024015</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1653894024015</updated>
+    </task>
+    <task id="LOCAL-00028" summary="fix: numercLit now process 1'[bB][01]">
+      <created>1653987043987</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1653987043987</updated>
+    </task>
+    <task id="LOCAL-00029" summary="refactor: rep comma can be handled with repsep">
+      <created>1654073858878</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1654073858878</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -428,18 +453,12 @@
     <MESSAGE value="fix: prior longer tokens" />
     <MESSAGE value="fix: port assign can be Number" />
     <MESSAGE value="add: b17 test&#10;&#10;we won't add b17_net.v source due to some reasons." />
-    <option name="LAST_COMMIT_MESSAGE" value="add: b17 test&#10;&#10;we won't add b17_net.v source due to some reasons." />
+    <MESSAGE value="add: b17 test&#10;&#10;we won't add ACTUAL b17_net.v source due to some reasons." />
+    <MESSAGE value="fix: numercLit now process 1'[bB][01]" />
+    <MESSAGE value="refactor: rep comma can be handled with repsep" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: rep comma can be handled with repsep" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsers.scala</url>
-          <line>8</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="jp.ac.nara_k.info.verilog_netlist.parser.NetlistParsers$$Lambda$208/0x0000000800d5bae8" memberName="arg" />
