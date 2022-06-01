@@ -12,21 +12,14 @@ trait NetlistParsers extends Parsers {
 
   // Declarations
   def module: Parser[NetlistAst.Module] = {
-    kw("module") ~ nameOfModule ~ opt(listOfPorts) ~ semicolon ~ rep(moduleItem) ~ kw("endmodule") ^^ {
-      case _ ~ name ~ Some(ports) ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = ports, items = items.flatten)
-      case _ ~ name ~ None ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = new Array[String](0), items = items.flatten)
+    kw("module") ~ nameOfModule ~ listOfPorts ~ semicolon ~ rep(moduleItem) ~ kw("endmodule") ^^ {
+      case _ ~ name ~ ports ~ _ ~ items ~ _ => NetlistAst.Module(name = name, ports = ports, items = items.flatten)
     }
   }
 
-  def nameOfModule: Parser[String] = {
-    primitiveIdentifier
-  }
+  def nameOfModule: Parser[String] = primitiveIdentifier
 
-  def listOfPorts: Parser[List[String]] = {
-    surroundedCircleBracket(port ~ rep(comma ~ port)) ^^ {
-      case head ~ tail => head :: tail.map { case _ ~ p => p }
-    }
-  }
+  def listOfPorts: Parser[List[String]] = surroundedCircleBracket(repsep(port, comma))
 
   def port: Parser[String] = {
     opt(portExpression) ^^ {
@@ -38,9 +31,7 @@ trait NetlistParsers extends Parsers {
       }
   }
 
-  def portExpression: Parser[String] = {
-    portReference
-  }
+  def portExpression: Parser[String] = portReference
 
   def portReference: Parser[String] = {
     nameOfVariable |
@@ -92,8 +83,8 @@ trait NetlistParsers extends Parsers {
   }
 
   def continuousAssign: Parser[List[NetlistAst.Assignment]] = {
-    kw("assign") ~ assignment ~ rep(comma ~ assignment) ~ semicolon ^^ {
-      case _ ~ asn ~ tail ~ _ => (asn :: tail.map(_._2)).map {
+    kw("assign") ~ rep1sep(assignment, comma) ~ semicolon ^^ {
+      case _ ~ assign_list ~ _ => assign_list.map {
         x => NetlistAst.Assignment(lvalue = x._1, expression = x._2)
       }
     }
@@ -107,9 +98,8 @@ trait NetlistParsers extends Parsers {
   }
 
   def moduleInstance: Parser[(NetlistAst.Declaration, List[(String, NetlistAst.Expression)])] = {
-    nameOfInstance ~ surroundedCircleBracket(opt(listOfModuleConnections)) ^^ {
-      case name ~ Some(tail) => (name, tail)
-      case name ~ None => (name, List())
+    nameOfInstance ~ surroundedCircleBracket(listOfModuleConnections) ^^ {
+      case name ~ connections => (name, connections)
     }
   }
 
@@ -120,11 +110,7 @@ trait NetlistParsers extends Parsers {
     }
   }
 
-  def listOfModuleConnections: Parser[List[(String, NetlistAst.Expression)]] = {
-    namedPortConnection ~ rep(comma ~ namedPortConnection) ^^ {
-      case head ~ tail => head :: tail.map { case _ ~ port => port }
-    }
-  }
+  def listOfModuleConnections: Parser[List[(String, NetlistAst.Expression)]] = repsep(namedPortConnection, comma)
 
   def namedPortConnection: Parser[(String, NetlistAst.Expression)] = {
     dot ~ primitiveIdentifier ~ surroundedCircleBracket(expression) ^^ {
@@ -139,11 +125,7 @@ trait NetlistParsers extends Parsers {
     }
   }
 
-  def listOfVariables: Parser[List[String]] = {
-    primitiveIdentifier ~ rep(comma ~ primitiveIdentifier) ^^ {
-      case first ~ tail => first :: tail.map { case _ ~ id => id }
-    }
-  }
+  def listOfVariables: Parser[List[String]] = rep1sep(primitiveIdentifier, comma)
 
   def range: Parser[(Int, Int)] = {
     surroundedSquareBracket(number ~ colon ~ number) ^^ {
@@ -178,18 +160,16 @@ trait NetlistParsers extends Parsers {
 
   // General
 
-  def identifier: Parser[String] = {
-    primitiveIdentifier ~ rep(dot ~ primitiveIdentifier) ^^ {
-      case root ~ tail => tail.map { case _ ~ id => id }.fold(root)((l, r) => l + "." + r)
-    }
+  def identifier: Parser[String] = rep1sep(primitiveIdentifier, dot) ^^ {
+    _ mkString "."
   }
 
-  private def primitiveIdentifier: Parser[String] = {
-    accept("identifier", { case id@Identifier(_) => id.chars })
-  }
+  private def primitiveIdentifier: Parser[String] = accept("identifier", { case id@Identifier(_) => id.chars })
 
   private def kw(keywordChars: String, excepted: String = ""): Parser[Keyword] = {
-    accept(List(excepted, keywordChars).find(_.nonEmpty).get, { case kw@Keyword(chars) if chars.equals(keywordChars) => kw })
+    accept(List(excepted, keywordChars).find(_.nonEmpty).get, {
+      case kw@Keyword(chars) if chars.equals(keywordChars) => kw
+    })
   }
 
   private def dot = kw(".", "dot")
@@ -208,7 +188,5 @@ trait NetlistParsers extends Parsers {
     case _ ~ s ~ _ => s
   }
 
-  private def number: Parser[Int] = {
-    accept("number literal", { case nm@NumericLit(_) => nm.chars.toInt })
-  }
+  private def number: Parser[Int] = accept("number literal", { case nm@NumericLit(_) => nm.chars.toInt })
 }
