@@ -23,25 +23,26 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
     new NetlistTokenReader(lex(net))
   }
 
-  private def _test_parser[T](parser: Parser[T], net: String, expected: T): Unit = {
-    assert(parser(genTokenReader(net)).get.equals(expected))
+  private def _test_parser[T](parser: Parser[T], net_excepted: (String, T)): Unit = {
+    assert(parser(genTokenReader(net_excepted._1)).get.equals(net_excepted._2))
   }
 
   private def test_parser[T] = (_test_parser[T] _).curried
 
   test("NetlistParsers.identifier") {
-    test_parser(identifier)("m13.m141.n13")("m13.m141.n13")
-    test_parser(indexed_identifier)("datai[12]")(IndexedIdentifier("datai", 12))
+    test_parser(identifier)("m13.m141.n13", "m13.m141.n13")
+    test_parser(indexed_identifier)("datai[12]", IndexedIdentifier("datai", 12))
   }
 
   test("NetlistParsers.expression") {
-    val test_expression_parser = test_parser(expression)
-    test_expression_parser("0")(Number(0))
-    test_expression_parser("1")(Number(1))
-    test_expression_parser("1'b1")(Number(1))
-    test_expression_parser("1'b0")(Number(0))
-    test_expression_parser("iden")(SingleIdentifier("iden"))
-    test_expression_parser("idx[3]")(IndexedIdentifier("idx", 3))
+    List(
+      ("0", Number(0)),
+      ("1", Number(1)),
+      ("1'b0", Number(0)),
+      ("1'b1", Number(1)),
+      ("iden", SingleIdentifier("iden")),
+      ("idx[3]", IndexedIdentifier("idx", 3)),
+    ).foreach(test_parser(expression))
   }
 
   test("NetlistParsers.parseISCAS_b02") {
