@@ -35,8 +35,8 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
 
   private def test_parser[T] = (_test_parser[T] _).curried
 
-  private def test_parser_for_each[T](parser: Parser[T], net_excepted: (String, T)*): Unit = {
-    net_excepted.foreach(test_parser(parser))
+  private def test_parser_forall[T](parser: Parser[T], net_excepted: (String, T)*): Boolean = {
+    net_excepted.forall(test_parser(parser))
   }
 
   test("NetlistParsers.Identifier") {
@@ -45,7 +45,7 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
   }
 
   test("NetlistParsers.Expression") {
-    test_parser_for_each(expression,
+    test_parser_forall(expression,
       ("0", Number(0)),
       ("1", Number(1)),
       ("1'b0", Number(0)),
@@ -53,18 +53,18 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
       ("iden", SingleIdentifier("iden")),
       ("idx[3]", IndexedIdentifier("idx", 3)),
     )
-    test_parser_for_each(lvalue,
+    test_parser_forall(lvalue,
       ("iden", SingleIdentifier("iden")),
       ("idx[3]", IndexedIdentifier("idx", 3)),
     )
   }
 
   test("NetlistParsers.BehavioralStatements") {
-    test_parser_for_each(range,
+    test_parser_forall(range,
       ("[0:20]", (20, 0)),
       ("[16:32]", (32, 16)),
     )
-    test_parser_for_each(assignment,
+    test_parser_forall(assignment,
       ("datao[3] = n35", (IndexedIdentifier("datao", 3), SingleIdentifier("n35"))),
       ("test_so = 0", (SingleIdentifier("test_so"), Number(0))),
       ("test_so = 1'b1", (SingleIdentifier("test_so"), Number(1))),
@@ -72,21 +72,60 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
   }
 
   test("NetlistParsers.ModuleInstantiations") {
-    test_parser_for_each(namedPortConnection,
+    test_parser_forall(namedPortConnection,
       (".port_ident(wire_ident)", ("port_ident", SingleIdentifier("wire_ident"))),
       (".D(n5[3])", ("D", IndexedIdentifier("n5", 3))),
     )
-    test_parser_for_each(listOfModuleConnections,
+    test_parser_forall(listOfModuleConnections,
       (".A(n1), .B(n2), .Z(n3)", List(("A", SingleIdentifier("n1")), ("B", SingleIdentifier("n2")), ("Z", SingleIdentifier("n3")))),
       (".D(n4), .DN(n5[3])", List(("D", SingleIdentifier("n4")), ("DN", IndexedIdentifier("n5", 3)))),
     )
-    test_parser_for_each(nameOfInstance,
+    test_parser_forall(nameOfInstance,
       ("U1", SingleIdentifier("U1")),
       ("U3 [12:2]", ArrayedIdentifier("U3", (2, 12))),
     )
-    test_parser_for_each(moduleInstance,
+    test_parser_forall(moduleInstance,
       ("U1 (.A(x))", (SingleIdentifier("U1"), List(("A", SingleIdentifier("x"))))),
       ("U2 [3:0]()", (ArrayedIdentifier("U2", (0, 3)), List())),
+    )
+    test_parser(moduleInstantiation)(
+      (
+        "IV1 U3 (.A(n3), .Z(n5));",
+        ModuleInstance("IV1", SingleIdentifier("U3"), List(("A", SingleIdentifier("n3")), ("Z", SingleIdentifier("n5"))))
+      )
+    )
+  }
+
+  test("NetlistParsers.Declarations") {
+    test_parser_forall(continuousAssign,
+      ("assign x = y;", List(Assignment(SingleIdentifier("x"), SingleIdentifier("y")))),
+      (
+        "assign n1 = 1'b1, datao[0] = 1'b0;",
+        List(Assignment(SingleIdentifier("n1"), Number(1)), Assignment(IndexedIdentifier("datao", 0), Number(0)))),
+    )
+    test_parser(wireDeclaration)("wire x, y, z;", List(SingleIdentifier("x"), SingleIdentifier("y"), SingleIdentifier("z")))
+    test_parser(outputDeclaration)("output x, y;", List(SingleIdentifier("x"), SingleIdentifier("y")))
+    test_parser(inputDeclaration)("input[0:20] x, y;", List(ArrayedIdentifier("x", (20, 0)), ArrayedIdentifier("y", (20, 0))))
+    test_parser_forall(moduleItem,
+      ("wire x;", List(WireDeclaration(SingleIdentifier("x")))),
+      ("input x;", List(InputDeclaration(SingleIdentifier("x")))),
+      ("output x;", List(OutputDeclaration(SingleIdentifier("x")))),
+      ("assign x = y;", List(Assignment(SingleIdentifier("x"), SingleIdentifier("y")))),
+      ("IV1 U(.A(n));", List(ModuleInstance("IV1", SingleIdentifier("U"), List(("A", SingleIdentifier("n")))))),
+    )
+    test_parser(module)(
+      (
+        "module b01(a, z); input a; output z; IV1 U1(.A(a), .Z(z)); endmodule",
+        Module(name = "b01", ports = List("a", "z"), items = List(
+          InputDeclaration(SingleIdentifier("a")),
+          OutputDeclaration(SingleIdentifier("z")),
+          ModuleInstance("IV1", SingleIdentifier("U1"), List(
+            ("A", SingleIdentifier("a")),
+            ("Z", SingleIdentifier("z")),
+          ),
+          )
+        ))
+      )
     )
   }
 
