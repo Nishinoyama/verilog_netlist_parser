@@ -11,15 +11,15 @@ class SingleAssignmentOnlyModuleGraph(module: AnalyzedSingleAssignmentOnlyModule
   override val ff_names: mutable.HashSet[String] = mutable.HashSet.from(List("FD2S"))
   override val nodes: mutable.HashSet[String] = mutable.HashSet.empty
 
-  nodes.addAll(module.getInputs)
-  nodes.addAll(module.getOutputs)
-  nodes.addAll(module.getWires)
-  nodes.addAll(module.getModules.map(_._2))
+  nodes.addAll(module.inputs)
+  nodes.addAll(module.outputs)
+  nodes.addAll(module.wires)
+  nodes.addAll(module.instantiatedModules.keys)
 
   override val edges: mutable.HashMap[String, mutable.HashSet[String]] = mutable.HashMap.from(nodes.map((_, mutable.HashSet.empty)))
 
-  module.getModules.foreach {
-    case (module_name, module_ident, ports_connect) =>
+  module.instantiatedModules.foreach {
+    case (module_ident, (module_name, ports_connect)) =>
       if (!ff_names.contains(module_name)) {
         ports_connect.foreach {
           case (port, SingleIdentifier(wire_ident)) if output_port_names.contains(port) =>
@@ -30,7 +30,7 @@ class SingleAssignmentOnlyModuleGraph(module: AnalyzedSingleAssignmentOnlyModule
         }
       }
   }
-  module.getAssignments.foreach {
+  module.assignments.foreach {
     case (lvalue, SingleIdentifier(ident)) => edges(lvalue) += ident
     case _ => ()
   }

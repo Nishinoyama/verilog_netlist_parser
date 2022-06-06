@@ -129,7 +129,7 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
     )
   }
 
-  test("NetlistParsers.parseISCAS_b02") {
+  test("NetlistParsers.parseISCAS") {
     val source = Source.fromFile("b17_net.v")
     val b02_net = source.getLines().mkString("\n")
     source.close()

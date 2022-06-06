@@ -37,4 +37,31 @@ object NetlistAst {
   case class IndexedIdentifier(ident: String, index: Int) extends Identifier with Expression
 
   case class Number(value: Int) extends Expression
+
+  object ArrayedIndexedIntoSingleIdentifier {
+
+    private def convertedSingle(ident: String, index: Int): SingleIdentifier = {
+      SingleIdentifier(ident + s"__$index")
+    }
+
+    def convert(identifier: Identifier): Iterable[SingleIdentifier] = identifier match {
+      case ArrayedIdentifier(ident, range) => (range._1 to range._2).map(convertedSingle(ident, _))
+      case IndexedIdentifier(ident, index) => List(convertedSingle(ident, index))
+      case ident: SingleIdentifier => List(ident)
+    }
+
+    def convertNonArrayed(identifier: Identifier): SingleIdentifier = identifier match {
+      case IndexedIdentifier(ident, index) => convertedSingle(ident, index)
+      case ident: SingleIdentifier => ident
+    }
+
+    def convertExpression(expression: Expression): Expression = expression match {
+      case IndexedIdentifier(ident, index) => convertedSingle(ident, index)
+      case x => x
+    }
+
+    def convertAll(identifiers: Iterable[Identifier]): Iterable[SingleIdentifier] = {
+      identifiers flatMap convert
+    }
+  }
 }

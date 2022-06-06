@@ -1,6 +1,5 @@
 package jp.ac.nara_k.info.verilog_netlist.parser.lexical
 
-import jp.ac.nara_k.info.verilog_netlist.parser.token.NetlistTokens
 import scala.collection.mutable
 import scala.util.matching.Regex
 import scala.util.parsing.combinator.RegexParsers
@@ -30,9 +29,9 @@ trait NetlistLexical extends RegexParsers {
     """1'[bB][01]""".r ^^ {
       x => NumericLit(x.drop(3))
     } |
-    """\d+""".r ^^ {
-      NumericLit
-    }
+      """\d+""".r ^^ {
+        NumericLit
+      }
   }
 
   def comment: Parser[Token] = ("""(?s)/\*.*\*/""".r | """//.*""".r) ^^ { _ => Keyword("") }
