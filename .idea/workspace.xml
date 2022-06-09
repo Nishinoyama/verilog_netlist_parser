@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: the tests for NetlistParsers">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedModule.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/TimeExpansion.scala" afterDir="false" />
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="refactor: make Seq into Iterable, due to cast set that is faster">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/Assignment.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/PortWire.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModule.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/TimeExpandedModule.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/b17_net.v" beforeDir="false" afterPath="$PROJECT_DIR$/b17_net.v" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyModuleGraph.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyModuleGraph.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/ast/NetlistAst.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/ast/NetlistAst.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/lexical/NetlistLexical.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/lexical/NetlistLexical.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyModuleGraph.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyAcyclicModuleGraph.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedModule.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedSingleAssignmentOnlyModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedSingleAssignmentOnlyModule.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/ArrayedIndexedIntoSingleIdentifier.scala" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,6 +61,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -211,7 +214,8 @@
       <workItem from="1653889481465" duration="169000" />
       <workItem from="1653889923426" duration="6183000" />
       <workItem from="1653986448991" duration="13693000" />
-      <workItem from="1654493656379" duration="3205000" />
+      <workItem from="1654493656379" duration="7147000" />
+      <workItem from="1654756552963" duration="8694000" />
     </task>
     <task id="LOCAL-00001" summary="idea: specify test directory">
       <created>1652423252083</created>
@@ -444,7 +448,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654135503549</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="refactor: make Seq into Iterable, due to cast set that is faster">
+      <created>1654505745940</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1654505745940</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -474,7 +485,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change: package hierarchy, inferior to verilog_netlist" />
     <MESSAGE value="add: now, tokens are parse-able" />
     <MESSAGE value="add: netlist modules and their miscellanies" />
     <MESSAGE value="refactor: trait into class" />
@@ -499,7 +509,8 @@
     <MESSAGE value="refactor: curried function makes test flexible" />
     <MESSAGE value="add: traceability for the test, add more tests." />
     <MESSAGE value="add: the tests for NetlistParsers" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: the tests for NetlistParsers" />
+    <MESSAGE value="refactor: make Seq into Iterable, due to cast set that is faster" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: make Seq into Iterable, due to cast set that is faster" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

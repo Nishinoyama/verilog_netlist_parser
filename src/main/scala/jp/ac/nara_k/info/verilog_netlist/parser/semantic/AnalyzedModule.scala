@@ -1,15 +1,25 @@
 package jp.ac.nara_k.info.verilog_netlist.parser.semantic
 
-import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.Expression
+import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst._
 
-trait AnalyzedModule {
-  def inputs: Iterable[String]
+class AnalyzedModule(module: Module) {
+  val inputs: Set[InputDeclaration] = module.items.collect {
+    case input: InputDeclaration => input
+  }.toSet
 
-  def outputs: Iterable[String]
+  val outputs: Set[OutputDeclaration] = module.items.collect {
+    case output: OutputDeclaration => output
+  }.toSet
 
-  def wires: Iterable[String]
+  val wires: Set[WireDeclaration] = module.items.collect {
+    case wire: WireDeclaration => wire
+  }.toSet
 
-  def assignments: Iterable[(String, Expression)]
+  val assignments: Set[Assignment] = module.items.collect {
+    case assign: Assignment => assign
+  }.toSet
 
-  def instantiatedModules: Iterable[(String, (String, Iterable[(String, Expression)]))]
+  val instantiated_modules: Map[Declaration, ModuleInstance] = module.items.collect {
+    case instance: ModuleInstance => (instance.declaration, instance)
+  }.toMap
 }

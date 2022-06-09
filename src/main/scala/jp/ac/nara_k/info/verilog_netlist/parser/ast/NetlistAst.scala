@@ -16,15 +16,37 @@ object NetlistAst {
 
   trait Expression
 
-  case class Module(name: String, ports: Seq[String], items: Seq[ModuleItem])
+  case class Module(name: String, ports: Seq[String], items: Seq[ModuleItem]) {
+    def inputs: Iterable[Declaration] = items.collect {
+      case InputDeclaration(input) => input
+    }
 
-  case class InputDeclaration(inputs: Declaration) extends ModuleItem
+    def outputs: Iterable[Declaration] = items.collect {
+      case OutputDeclaration(output) => output
+    }
 
-  case class OutputDeclaration(outputs: Declaration) extends ModuleItem
+    def wires: Iterable[Declaration] = items.collect {
+      case WireDeclaration(wire) => wire
+    }
 
-  case class WireDeclaration(wires: Declaration) extends ModuleItem
+    def assignments: Iterable[Assignment] = items.collect {
+      case assignment: Assignment => assignment
+    }
+
+    def instances: Iterable[ModuleInstance] = items.collect {
+      case moduleInstance: ModuleInstance => moduleInstance
+    }
+  }
+
+  case class InputDeclaration(input: Declaration) extends ModuleItem
+
+  case class OutputDeclaration(output: Declaration) extends ModuleItem
+
+  case class WireDeclaration(wire: Declaration) extends ModuleItem
 
   case class Assignment(lvalue: Identifier, expression: Expression) extends ModuleItem
+
+  case class SingleAssignment(lvalue: SingleIdentifier, expression: Expression) extends ModuleItem
 
   //  case class ModulesDeclaration(modules: Seq[ModuleInstance]) extends ModuleItem
 
@@ -44,7 +66,7 @@ object NetlistAst {
       SingleIdentifier(ident + s"__$index")
     }
 
-    def convert(identifier: Identifier): Iterable[SingleIdentifier] = identifier match {
+    def convertSingles(identifier: Identifier): Iterable[SingleIdentifier] = identifier match {
       case ArrayedIdentifier(ident, range) => (range._1 to range._2).map(convertedSingle(ident, _))
       case IndexedIdentifier(ident, index) => List(convertedSingle(ident, index))
       case ident: SingleIdentifier => List(ident)
@@ -61,7 +83,11 @@ object NetlistAst {
     }
 
     def convertAll(identifiers: Iterable[Identifier]): Iterable[SingleIdentifier] = {
-      identifiers flatMap convert
+      identifiers flatMap convertSingles
+    }
+
+    def convertAssignment(assignment: Assignment): SingleAssignment = assignment match {
+      case Assignment(lvalue, expression) => SingleAssignment(convertNonArrayed(lvalue), expression)
     }
   }
 }

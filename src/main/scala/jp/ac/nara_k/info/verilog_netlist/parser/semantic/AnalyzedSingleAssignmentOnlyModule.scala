@@ -1,30 +1,18 @@
 package jp.ac.nara_k.info.verilog_netlist.parser.semantic
 
+import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.ArrayedIndexedIntoSingleIdentifier._
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst._
 
-class AnalyzedSingleAssignmentOnlyModule(module: Module) extends AnalyzedModule {
+class AnalyzedSingleAssignmentOnlyModule(module: Module) {
+  val inputs: Set[SingleIdentifier] = module.inputs.flatMap(convertSingles).toSet
 
-  import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.ArrayedIndexedIntoSingleIdentifier._
+  val outputs: Set[SingleIdentifier] = module.outputs.flatMap(convertSingles).toSet
 
-  private val _inputs = module.items.collect { case InputDeclaration(input) => convert(input).map(_.ident) }.flatten.toSet
-  private val _outputs = module.items.collect { case OutputDeclaration(output) => convert(output).map(_.ident) }.flatten.toSet
-  private val _wires = module.items.collect { case WireDeclaration(wire) => convert(wire).map(_.ident) }.flatten.toSet
-  private val _assignments = module.items.collect { case Assignment(lvalue, expression) =>
-    (convertNonArrayed(lvalue).ident, convertExpression(expression))
-  }.toSet
-  private val instantiated_modules = module.items.collect { case ModuleInstance(module_name, declaration, port_connections) =>
-    (convertNonArrayed(declaration).ident, (module_name, port_connections.map { x => (x._1, convertExpression(x._2)) }))
-  }.toMap
+  val wires: Set[SingleIdentifier] = module.wires.flatMap(convertSingles).toSet
 
-  override def toString: String = s"inputs: $inputs\noutputs: $outputs\nwires: $wires\nassignments: $assignments\ninstantiatedModules: $instantiatedModules"
+  val assignments: Set[SingleAssignment] = module.assignments.map(convertAssignment).toSet
 
-  override def inputs: Set[String] = _inputs
+  val instantiated_modules: Set[ModuleInstance] = module.instances.toSet
 
-  override def outputs: Set[String] = _outputs
-
-  override def wires: Set[String] = _wires
-
-  override def assignments: Set[(String, Expression)] = _assignments
-
-  override def instantiatedModules: Map[String, (String, Iterable[(String, Expression)])] = instantiated_modules
+  override def toString: String = s"inputs: $inputs\noutputs: $outputs\nwires: $wires\nassignments: $assignments\ninstantiatedModules: $instantiated_modules"
 }

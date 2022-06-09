@@ -1,39 +1,39 @@
 package jp.ac.nara_k.info.verilog_netlist.graph
 
-import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.SingleIdentifier
+import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.ArrayedIndexedIntoSingleIdentifier._
+import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst._
 import jp.ac.nara_k.info.verilog_netlist.parser.semantic.AnalyzedSingleAssignmentOnlyModule
 
 import scala.collection.mutable
 
-class SingleAssignmentOnlyModuleGraph(module: AnalyzedSingleAssignmentOnlyModule) extends NetlistGraph[String] {
+class SingleAssignmentOnlyAcyclicModuleGraph(module: AnalyzedSingleAssignmentOnlyModule) extends NetlistGraph[String] {
 
   override val output_port_names: mutable.HashSet[String] = mutable.HashSet.from(List("Z"))
   override val ff_names: mutable.HashSet[String] = mutable.HashSet.from(List("FD2S"))
   override val nodes: mutable.HashSet[String] = mutable.HashSet.empty
 
-  nodes.addAll(module.inputs)
-  nodes.addAll(module.outputs)
-  nodes.addAll(module.wires)
-  nodes.addAll(module.instantiatedModules.keys)
+  nodes ++= module.inputs.map(_.ident)
+  nodes ++= module.outputs.map(_.ident)
+  nodes ++= module.wires.map(_.ident)
+  nodes ++= module.instantiated_modules.map(_.declaration.ident)
 
   override val edges: mutable.HashMap[String, mutable.HashSet[String]] = mutable.HashMap.from(nodes.map((_, mutable.HashSet.empty)))
 
-  module.instantiatedModules.foreach {
-    case (module_ident, (module_name, ports_connect)) =>
+  module.instantiated_modules.foreach {
+    case ModuleInstance(module_name, module_ident, ports_connect) =>
       if (!ff_names.contains(module_name)) {
         ports_connect.foreach {
-          case (port, SingleIdentifier(wire_ident)) if output_port_names.contains(port) =>
-            edges(module_ident).add(wire_ident)
-          case (port, SingleIdentifier(wire_ident)) if !output_port_names.contains(port) =>
-            edges(wire_ident).add(module_ident)
+          case (port, wire_ident: Identifier) =>
+            val wire_ident_single = convertNonArrayed(wire_ident)
+            if (output_port_names.contains(port))
+              edges(module_ident.ident).add(wire_ident_single.ident)
+            else
+              edges(wire_ident_single.ident).add(module_ident.ident)
           case _ => ()
         }
       }
   }
-  module.assignments.foreach {
-    case (lvalue, SingleIdentifier(ident)) => edges(lvalue) += ident
-    case _ => ()
-  }
+  module.assignments.collect { case SingleAssignment(lvalue, SingleIdentifier(ident)) => edges(lvalue.ident) += ident }
 
   override def toString: String = {
     s"$nodes\n${edges.filter(x => x._2.nonEmpty)}"

@@ -1,6 +1,6 @@
 package jp.ac.nara_k.info.verilog_netlist.parser
 
-import jp.ac.nara_k.info.verilog_netlist.graph.SingleAssignmentOnlyModuleGraph
+import jp.ac.nara_k.info.verilog_netlist.graph.SingleAssignmentOnlyAcyclicModuleGraph
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst
 import jp.ac.nara_k.info.verilog_netlist.parser.input.NetlistTokenReader
 import jp.ac.nara_k.info.verilog_netlist.parser.lexical.StdNetlistLexical
@@ -135,9 +135,39 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
     source.close()
     val parseResult = module(genTokenReader(b02_net)).get
     val analyzedModule = new AnalyzedSingleAssignmentOnlyModule(parseResult)
-    val moduleGraph = new SingleAssignmentOnlyModuleGraph(analyzedModule)
+    val moduleGraph = new SingleAssignmentOnlyAcyclicModuleGraph(analyzedModule)
     //    println(moduleGraph)
     println(moduleGraph.search("datai__2"))
     println(moduleGraph.relation("P2_U1283", "P2_U895"))
+  }
+
+  test("NetlistParsers.parseMinimal") {
+    val netlist =
+      """
+        |module tt(x, y, cx, z, cz);
+        |  input [1:0] x;
+        |  input [1:0] y;
+        |  input cx;
+        |  output [1:0] z;
+        |  output cz;
+        |  wire [1:0] n;
+        |  wire nz;
+        |  assign cz = n[0];
+        |  ND2I P1 ( .A(x[0]), .B(y[0]), .Z(n[0]) );
+        |  ND2I P2 ( .A(x[1]), .B(y[1]), .Z(n[1]) );
+        |  ND2I P3 ( .A(n[0]), .B(cx), .Z(z[0]) );
+        |  ND2I P4 ( .A(n[1]), .B(nz), .Z(z[1]) );
+        |  FD2S P5 ( .D(n[0]), .Q(nz));
+        |endmodule
+        |""".stripMargin
+    val parseResult = module(genTokenReader(netlist)).get
+    val analyzedModule = new AnalyzedSingleAssignmentOnlyModule(parseResult)
+    val moduleGraph = new SingleAssignmentOnlyAcyclicModuleGraph(analyzedModule)
+    //    println(moduleGraph)
+    assert(moduleGraph.search("x__0") == Set("P1", "P3", "x__0", "z__0", "n__0"))
+    assert(moduleGraph.search("y__0") == Set("P1", "P3", "y__0", "z__0", "n__0"))
+    assert(moduleGraph.search("x__1") == Set("P2", "P4", "x__1", "z__1", "n__1"))
+    assert(moduleGraph.search("y__1") == Set("P2", "P4", "y__1", "z__1", "n__1"))
+    assert(moduleGraph.search("cx") == Set("P3", "cx", "z__0"))
   }
 }
