@@ -1,6 +1,5 @@
 package jp.ac.nara_k.info.verilog_netlist.graph
 
-import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.ArrayedIndexedIntoSingleIdentifier._
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst._
 import jp.ac.nara_k.info.verilog_netlist.parser.semantic.AnalyzedSingleAssignmentOnlyModule
 
@@ -20,20 +19,22 @@ class SingleAssignmentOnlyAcyclicModuleGraph(module: AnalyzedSingleAssignmentOnl
   override val edges: mutable.HashMap[String, mutable.HashSet[String]] = mutable.HashMap.from(nodes.map((_, mutable.HashSet.empty)))
 
   module.instantiated_modules.foreach {
-    case ModuleInstance(module_name, module_ident, ports_connect) =>
+    case ModuleInstance(module_name, SingleIdentifier(module_ident), ports_connect) =>
       if (!ff_names.contains(module_name)) {
         ports_connect.foreach {
-          case (port, wire_ident: Identifier) =>
-            val wire_ident_single = convertNonArrayed(wire_ident)
+          case (port, SingleIdentifier(wire_ident)) =>
             if (output_port_names.contains(port))
-              edges(module_ident.ident).add(wire_ident_single.ident)
+              edges(module_ident).add(wire_ident)
             else
-              edges(wire_ident_single.ident).add(module_ident.ident)
+              edges(wire_ident).add(module_ident)
           case _ => ()
         }
       }
   }
-  module.assignments.collect { case SingleAssignment(lvalue, SingleIdentifier(ident)) => edges(lvalue.ident) += ident }
+  module.assignments.foreach {
+    case SingleAssignment(SingleIdentifier(lvalue), SingleIdentifier(ident)) => edges(lvalue) += ident
+    case _ => ()
+  }
 
   override def toString: String = {
     s"$nodes\n${edges.filter(x => x._2.nonEmpty)}"

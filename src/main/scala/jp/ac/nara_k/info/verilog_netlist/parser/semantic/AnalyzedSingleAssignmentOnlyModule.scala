@@ -12,7 +12,7 @@ class AnalyzedSingleAssignmentOnlyModule(module: Module) {
 
   val assignments: Set[SingleAssignment] = module.assignments.map(convertAssignment).toSet
 
-  val instantiated_modules: Set[ModuleInstance] = module.instances.toSet
+  val instantiated_modules: Set[ModuleInstance] = module.instances.map(convertInstance).toSet
 
   override def toString: String = s"inputs: $inputs\noutputs: $outputs\nwires: $wires\nassignments: $assignments\ninstantiatedModules: $instantiated_modules"
 }

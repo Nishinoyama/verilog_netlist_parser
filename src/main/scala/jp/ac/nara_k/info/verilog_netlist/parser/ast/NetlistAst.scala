@@ -89,5 +89,15 @@ object NetlistAst {
     def convertAssignment(assignment: Assignment): SingleAssignment = assignment match {
       case Assignment(lvalue, expression) => SingleAssignment(convertNonArrayed(lvalue), expression)
     }
+
+    def convertInstance(instance: ModuleInstance): ModuleInstance = instance match {
+      case ModuleInstance(name, identifier: Identifier, port_connections) =>
+        ModuleInstance(name, convertNonArrayed(identifier), port_connections.map(convertPortConnection))
+    }
+
+    def convertPortConnection(port_connection: (String, Expression)): (String, Expression) = port_connection match {
+      case (port, connection: Expression) => (port, convertExpression(connection))
+    }
+
   }
 }
