@@ -4,17 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="refactor: make Seq into Iterable, due to cast set that is faster">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/Assignment.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/PortWire.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModule.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/TimeExpandedModule.scala" afterDir="false" />
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="refactor: single/multi wire action">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Assignment.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Const0Wire.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Const1Wire.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/ConstWire.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Instance.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/PortConnection.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Wire.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/b17_net.v" beforeDir="false" afterPath="$PROJECT_DIR$/b17_net.v" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyModuleGraph.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyAcyclicModuleGraph.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedModule.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyAcyclicModuleGraph.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/graph/SingleAssignmentOnlyAcyclicModuleGraph.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/ast/NetlistAst.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/ast/NetlistAst.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedSingleAssignmentOnlyModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedSingleAssignmentOnlyModule.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/Assignment.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/PortWire.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModule.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -109,7 +114,7 @@
       <command value=":w" />
     </option>
   </component>
-  <component name="RunManager" selected="ScalaTest.'test' の ScalaTest">
+  <component name="RunManager" selected="ScalaTest.NetlistParsersTest.NetlistParsers.parseMinimal">
     <configuration name="NetlistParsersTest (1)" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
       <module name="verilog_netlist_parser" />
       <option name="allowRunningInParallel" value="false" />
@@ -137,15 +142,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StdNetlistLexicalTest" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+    <configuration name="NetlistParsersTest.NetlistParsers.parseMinimal" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
       <module name="verilog_netlist_parser" />
       <option name="allowRunningInParallel" value="false" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
       </option>
-      <option name="testKind" value="Class" />
-      <option name="testClassPath" value="jp.ac.nara_k.info.verilog_netlist_parser.lexical.StdNetlistLexicalTest" />
+      <option name="testKind" value="Test name" />
+      <option name="testClassPath" value="jp.ac.nara_k.info.verilog_netlist.parser.NetlistParsersTest" />
+      <option name="testName" value="NetlistParsers.parseMinimal" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -186,11 +192,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="ScalaTest.NetlistParsersTest.NetlistParsers.parseMinimal" />
         <item itemvalue="ScalaTest.'test' の ScalaTest" />
         <item itemvalue="ScalaTest.NetlistParsersTest (1)" />
         <item itemvalue="ScalaTest.NetlistParsersTest.NetlistParsers.identifier" />
         <item itemvalue="ScalaTest.TopModuleTest.netlist" />
-        <item itemvalue="ScalaTest.StdNetlistLexicalTest" />
       </list>
     </recent_temporary>
   </component>
@@ -215,7 +221,8 @@
       <workItem from="1653889923426" duration="6183000" />
       <workItem from="1653986448991" duration="13693000" />
       <workItem from="1654493656379" duration="7147000" />
-      <workItem from="1654756552963" duration="8694000" />
+      <workItem from="1654756552963" duration="14548000" />
+      <workItem from="1655089178149" duration="11049000" />
     </task>
     <task id="LOCAL-00001" summary="idea: specify test directory">
       <created>1652423252083</created>
@@ -455,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654505745940</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="temporary">
+      <created>1654766553282</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1654766553282</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,7 +486,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="feature/netlist/main" />
+                        <option value="origin/temporary" />
                       </list>
                     </value>
                   </entry>
@@ -485,8 +499,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add: now, tokens are parse-able" />
-    <MESSAGE value="add: netlist modules and their miscellanies" />
     <MESSAGE value="refactor: trait into class" />
     <MESSAGE value="version: 0.2.0" />
     <MESSAGE value="change: wire hierarchy" />
@@ -510,7 +522,9 @@
     <MESSAGE value="add: traceability for the test, add more tests." />
     <MESSAGE value="add: the tests for NetlistParsers" />
     <MESSAGE value="refactor: make Seq into Iterable, due to cast set that is faster" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: make Seq into Iterable, due to cast set that is faster" />
+    <MESSAGE value="temporary" />
+    <MESSAGE value="refactor: single/multi wire action" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: single/multi wire action" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
