@@ -4,6 +4,8 @@ import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.ArrayedIndexedInt
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst._
 
 class AnalyzedSingleAssignmentOnlyModule(module: Module) {
+  val name: String = module.name
+
   val inputs: Set[SingleIdentifier] = module.inputs.flatMap(convertSingles).toSet
 
   val outputs: Set[SingleIdentifier] = module.outputs.flatMap(convertSingles).toSet

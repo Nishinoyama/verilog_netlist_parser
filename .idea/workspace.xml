@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="fix: perfect single identifier assumption">
-      <change afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModuleTest.scala" afterDir="false" />
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: to string for module items for serialization">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/b17_net.v" beforeDir="false" afterPath="$PROJECT_DIR$/b17_net.v" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Assignment.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Assignment.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/ast/NetlistAst.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/ast/NetlistAst.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedSingleAssignmentOnlyModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedSingleAssignmentOnlyModule.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Instance.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Instance.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/PortConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/PortConnection.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModule.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Wire.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Wire.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/lexical/StdNetlistLexicalTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/lexical/StdNetlistLexicalTest.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModuleTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModuleTest.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,27 +71,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_directory_selection&quot;: &quot;C:/Users/nakayama/IdeaProjects/verilog_netlist_parser/src/main/test/jp/ac/nara_k/info/verilog_netlist&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/nakayama/IdeaProjects/verilog_netlist_parser/src/main/scala/jp/ac/nara_k/info/verilog_netlist/module/traits&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_directory_selection": "C:/Users/nakayama/IdeaProjects/verilog_netlist_parser/src/main/test/jp/ac/nara_k/info/verilog_netlist",
+    "last_opened_file_path": "C:/Users/nakayama/IdeaProjects/verilog_netlist_parser",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\nakayama\IdeaProjects\verilog_netlist_parser" />
       <recent name="C:\Users\nakayama\IdeaProjects\verilog_netlist_parser\src\main\scala\jp\ac\nara_k\info\verilog_netlist\module\traits" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -217,7 +217,7 @@
       <workItem from="1654493656379" duration="7147000" />
       <workItem from="1654756552963" duration="14548000" />
       <workItem from="1655089178149" duration="11049000" />
-      <workItem from="1655340591753" duration="639000" />
+      <workItem from="1655340591753" duration="4832000" />
     </task>
     <task id="LOCAL-00001" summary="idea: specify test directory">
       <created>1652423252083</created>
@@ -471,7 +471,21 @@
       <option name="project" value="LOCAL" />
       <updated>1655111479848</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="fix: declaration is not module name">
+      <created>1655341478144</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1655341478144</updated>
+    </task>
+    <task id="LOCAL-00038" summary="add: to string for module items for serialization">
+      <created>1655341516505</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1655341516505</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -501,8 +515,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="version: 0.2.0" />
-    <MESSAGE value="change: wire hierarchy" />
     <MESSAGE value="add: Abstract Syntax Tree (AST)" />
     <MESSAGE value="change: parser generates Abstract Syntax Tree (AST)" />
     <MESSAGE value="change: ModuleItems are now flatten" />
@@ -526,7 +538,9 @@
     <MESSAGE value="temporary" />
     <MESSAGE value="refactor: single/multi wire action" />
     <MESSAGE value="fix: perfect single identifier assumption" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: perfect single identifier assumption" />
+    <MESSAGE value="fix: declaration is not module name" />
+    <MESSAGE value="add: to string for module items for serialization" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: to string for module items for serialization" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

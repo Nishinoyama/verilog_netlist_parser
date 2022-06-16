@@ -87,7 +87,7 @@ object NetlistAst {
     }
 
     def convertAssignment(assignment: Assignment): SingleAssignment = assignment match {
-      case Assignment(lvalue, expression) => SingleAssignment(convertNonArrayed(lvalue), expression)
+      case Assignment(lvalue, expression) => SingleAssignment(convertNonArrayed(lvalue), convertExpression(expression))
     }
 
     def convertInstance(instance: ModuleInstance): ModuleInstance = instance match {
