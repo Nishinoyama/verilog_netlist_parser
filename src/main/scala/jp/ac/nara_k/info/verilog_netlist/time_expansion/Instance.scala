@@ -8,6 +8,6 @@ class Instance(module_name: String, portConnections: Seq[PortConnection]) {
 
 object Instance {
   def fromAst(instance: ModuleInstance): (String, Instance) = {
-    (instance.module_name, new Instance(instance.module_name, PortConnection.fromAstInstant(instance)))
+    (instance.declaration.ident, new Instance(instance.module_name, PortConnection.fromAstInstant(instance)))
   }
 }
