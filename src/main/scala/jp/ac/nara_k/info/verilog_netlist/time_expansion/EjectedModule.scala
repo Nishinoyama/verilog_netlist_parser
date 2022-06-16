@@ -5,8 +5,8 @@ import scala.collection.immutable.TreeMap
 class EjectedModule(sequentialModule: SequentialModule) extends Module {
 
   private val ff_count = sequentialModule.ff_instances.size
-  private val _pseudo_inputs = (0 until ff_count).map(i => new Wire(s"__pseudo_input_$i")).toSet
-  private val _pseudo_outputs = (0 until ff_count).map(i => new Wire(s"__pseudo_output_$i")).toSet
+  private val _pseudo_inputs = (0 until ff_count).map(i => new Wire(f"__pseudo_input_$i%05d")).toSet
+  private val _pseudo_outputs = (0 until ff_count).map(i => new Wire(f"__pseudo_output_$i%05d")).toSet
 
   private val _pseudo_inputs_assignments = {
     _pseudo_inputs.zip(dFFConnectedWires("Q")).map {
