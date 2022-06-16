@@ -136,9 +136,6 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
     val parseResult = module(genTokenReader(b02_net)).get
     val analyzedModule = new AnalyzedSingleAssignmentOnlyModule(parseResult)
     val moduleGraph = new SingleAssignmentOnlyAcyclicModuleGraph(analyzedModule)
-    //    println(moduleGraph)
-    println(moduleGraph.search("datai__2"))
-    println(moduleGraph.relation("P2_U1283", "P2_U895"))
   }
 
   test("NetlistParsers.parseMinimal") {
