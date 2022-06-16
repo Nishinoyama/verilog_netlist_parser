@@ -5,12 +5,19 @@
 /////////////////////////////////////////////////////////////
 
 
-module b17 (datai, outp);
-  input [4:1] datai;
-  output outp;
-  wire n1, n2;
-  ND2I P2_U1283 ( .A(datai[1]), .B(datai[2]), .Z(n1) );
-  ND2I P2_U895 ( .A(n1), .B(datai[3]), .Z(n2) );
-  assign outp = n2;
+module b17 (x, y, cx, z, cz);
+  input [1:0] x;
+  input [1:0] y;
+  input cx;
+  output [1:0] z;
+  output cz, cc;
+  wire [1:0] n;
+  wire nz;
+  assign cz = n[0];
+  ND2I P1 ( .A(x[0]), .B(y[0]), .Z(n[0]) );
+  ND2I P2 ( .A(x[1]), .B(y[1]), .Z(n[1]) );
+  ND2I P3 ( .A(n[0]), .B(cx), .Z(z[0]) );
+  ND2I P4 ( .A(n[1]), .B(nz), .Z(z[1]) );
+  FD2S P5 ( .D(n[0]), .Q(nz), .QN(cc));
 endmodule
 

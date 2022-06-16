@@ -36,4 +36,16 @@ class SequentialModuleTest extends AnyFunSuite {
     val serSequentialModule = new SequentialModule(serAnalyzedModule, List("FD2S"))
     assert(sequentialModule.toString.equals(serSequentialModule.toString))
   }
+
+  test("SequentialModule.ejection") {
+    val source = Source.fromFile("b17_net.v")
+    val b02_net = source.getLines().mkString("\n")
+    source.close()
+    val parseResult = module(genTokenReader(b02_net)).get
+    val analyzedModule = new AnalyzedSingleAssignmentOnlyModule(parseResult)
+    val sequentialModule = new SequentialModule(analyzedModule, List("FD2S"))
+    val ejectedModule = new EjectedModule(sequentialModule)
+    val serialized = ejectedModule.toString
+    println(serialized)
+  }
 }
