@@ -13,6 +13,7 @@ class Instance(val module_name: String, val portConnections: Seq[PortConnection]
 }
 
 object Instance {
+  def apply(module_name: String, portConnections: Seq[PortConnection]): Instance = new Instance(module_name, portConnections)
   def fromAst(instance: ModuleInstance): (String, Instance) = {
     (instance.declaration.ident, new Instance(instance.module_name, PortConnection.fromAstInstant(instance)))
   }

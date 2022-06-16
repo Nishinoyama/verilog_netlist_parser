@@ -18,6 +18,7 @@ trait Module {
        |  input ${inputs.toSeq.sorted.mkString(", ")};
        |  output ${outputs.toSeq.sorted.mkString(", ")};
        |  wire ${wires.toSeq.sorted.mkString(", ")};
+       |  ${assignments.map(_.toString).mkString(";\n  ")};
        |  ${instances.map(x => x._2.serialized(x._1)).toSeq.sorted.mkString(";\n  ")};
        |endmodule
        |""".stripMargin

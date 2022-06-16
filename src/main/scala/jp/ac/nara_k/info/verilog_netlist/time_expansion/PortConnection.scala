@@ -7,6 +7,8 @@ class PortConnection(val port: String, val wire: Wire) {
 }
 
 object PortConnection {
+  def apply(port: String, wire: Wire): PortConnection = new PortConnection(port, wire)
+
   def fromAstInstant(instance: ModuleInstance): Seq[PortConnection] = {
     instance.port_connections.map(fromPortAst)
   }

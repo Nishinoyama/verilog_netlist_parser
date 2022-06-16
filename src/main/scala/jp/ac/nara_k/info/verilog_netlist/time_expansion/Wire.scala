@@ -11,6 +11,8 @@ class Wire(_ident: String) {
 object Wire {
   implicit val wireOrdering: Ordering[Wire] = Ordering.by(_.ident)
 
+  def apply(_ident: String): Wire = new Wire(_ident)
+
   def fromAst(singleIdentifier: Expression): Wire = singleIdentifier match {
     case SingleIdentifier(ident) => new Wire(ident)
     case Number(const) => ConstWire.fromInt(const)

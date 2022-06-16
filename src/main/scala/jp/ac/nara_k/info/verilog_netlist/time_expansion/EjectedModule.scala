@@ -5,19 +5,15 @@ import scala.collection.immutable.TreeMap
 class EjectedModule(sequentialModule: SequentialModule) extends Module {
 
   private val ff_count = sequentialModule.ff_instances.size
-  private val _pseudo_inputs = (0 until ff_count).map(i => new Wire(f"__pseudo_input_$i%05d")).toSet
-  private val _pseudo_outputs = (0 until ff_count).map(i => new Wire(f"__pseudo_output_$i%05d")).toSet
+  private val _pseudo_inputs = (0 until ff_count).map(i => Wire(f"pseudo_input_$i%05d")).toSet
+  private val _pseudo_outputs = (0 until ff_count).map(i => Wire(f"pseudo_output_$i%05d")).toSet
 
-  private val _pseudo_inputs_assignments = {
-    _pseudo_inputs.zip(dFFConnectedWires("Q")).map {
-      case (x, Some(y)) => new Assignment(x, y)
-    }
+  private val _pseudo_inputs_assignments = _pseudo_inputs.zip(dFFConnectedWires("Q")).map {
+    case (x, Some(y)) => Assignment(y, x)
   }
 
-  private val _pseudo_outputs_assignments = {
-    _pseudo_outputs.zip(dFFConnectedWires("D")).map {
-      case (x, Some(y)) => new Assignment(y, x)
-    }
+  private val _pseudo_outputs_assignments = _pseudo_outputs.zip(dFFConnectedWires("D")).map {
+    case (x, Some(y)) => Assignment(x, y)
   }
 
   private def dFFConnectedWires(port: String) =
@@ -25,9 +21,8 @@ class EjectedModule(sequentialModule: SequentialModule) extends Module {
 
   private val _pseudo_inputs_inverter_instances = {
     _pseudo_inputs.zip(dFFConnectedWires("QN")).collect {
-      case (x, Some(y)) => (s"${x.ident.toUpperCase}_INV", new Instance("IV", List(
-        new PortConnection("A", x), new PortConnection("Z", y)
-      )))
+      case (x, Some(y)) =>
+        (s"${x.ident.toUpperCase}_INV", Instance("IVI", List(PortConnection("A", x), PortConnection("Z", y))))
     }
   }
 

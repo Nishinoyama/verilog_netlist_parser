@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: ejection of core module from sequential module">
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="fix: zero padding for ppi/ppo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/b17_net.v" beforeDir="false" afterPath="$PROJECT_DIR$/b17_net.v" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Assignment.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Assignment.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/EjectedModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/EjectedModule.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Instance.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Instance.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Module.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Module.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/PortConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/PortConnection.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Wire.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Wire.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,7 +217,7 @@
       <workItem from="1654493656379" duration="7147000" />
       <workItem from="1654756552963" duration="14548000" />
       <workItem from="1655089178149" duration="11049000" />
-      <workItem from="1655340591753" duration="12531000" />
+      <workItem from="1655340591753" duration="14266000" />
     </task>
     <task id="LOCAL-00001" summary="idea: specify test directory">
       <created>1652423252083</created>
@@ -494,7 +499,28 @@
       <option name="project" value="LOCAL" />
       <updated>1655370486461</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="fix: zero padding">
+      <created>1655370718209</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1655370718209</updated>
+    </task>
+    <task id="LOCAL-00042" summary="fix: zero padding for ppi">
+      <created>1655370725143</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1655370725143</updated>
+    </task>
+    <task id="LOCAL-00043" summary="fix: zero padding for ppi/ppo">
+      <created>1655370736566</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1655370736567</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -524,10 +550,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change: ModuleItems are now flatten" />
-    <MESSAGE value="refactor: Declaration IS Identifier" />
-    <MESSAGE value="add: SingleIdentifier converter, to simplify circuit" />
-    <MESSAGE value="add: analyze circuit with single assignments only assumption" />
     <MESSAGE value="move: top module" />
     <MESSAGE value="add: relation that whether the two subgraph have common nodes" />
     <MESSAGE value="version: 0.3.1" />
@@ -549,7 +571,11 @@
     <MESSAGE value="add: to string for module items for serialization" />
     <MESSAGE value="add: serialization unification" />
     <MESSAGE value="add: ejection of core module from sequential module" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: ejection of core module from sequential module" />
+    <MESSAGE value="fix: zero padding" />
+    <MESSAGE value="fix: zero padding for ppi" />
+    <MESSAGE value="fix: zero padding for ppi/o" />
+    <MESSAGE value="fix: zero padding for ppi/ppo" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: zero padding for ppi/ppo" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
