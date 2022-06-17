@@ -5,8 +5,8 @@ import scala.collection.immutable.TreeMap
 class EjectedModule(sequentialModule: SequentialModule) extends Module {
 
   private val ff_count = sequentialModule.ff_instances.size
-  private val _pseudo_inputs = (0 until ff_count).map(i => Wire(f"pseudo_input_$i%05d")).toSet
-  private val _pseudo_outputs = (0 until ff_count).map(i => Wire(f"pseudo_output_$i%05d")).toSet
+  private val _pseudo_inputs = (0 until ff_count).map(i => Wire(f"__pseudo_input_$i%05d")).toSet
+  private val _pseudo_outputs = (0 until ff_count).map(i => Wire(f"__pseudo_output_$i%05d")).toSet
 
   private val _pseudo_inputs_assignments = _pseudo_inputs.zip(dFFConnectedWires("Q")).map {
     case (x, Some(y)) => Assignment(y, x)
@@ -26,17 +26,27 @@ class EjectedModule(sequentialModule: SequentialModule) extends Module {
     }
   }
 
+  private val _inputs: Set[Wire] = sequentialModule.inputs -- Wire.scanWires() ++ _pseudo_inputs
+  private val _outputs: Set[Wire] = sequentialModule.outputs -- Wire.scanWires() ++ _pseudo_outputs
+  private val _assignments: Set[Assignment] =
+    sequentialModule.assignments.filterNot(x => x.left_wire.ident.equals("test_so")) ++
+      _pseudo_inputs_assignments ++
+      _pseudo_outputs_assignments
+  private val _instances: TreeMap[String, Instance] =
+    sequentialModule.instances.filterNot(x => x._2.portConnections.exists(y => Wire.scanWires().contains(y.wire))) ++
+      _pseudo_inputs_inverter_instances
+
   override def name: String = sequentialModule.name
 
-  override def inputs: Set[Wire] = sequentialModule.inputs ++ _pseudo_inputs
+  override def inputs: Set[Wire] = _inputs
 
-  override def outputs: Set[Wire] = sequentialModule.outputs ++ _pseudo_outputs
+  override def outputs: Set[Wire] = _outputs
 
   override def wires: Set[Wire] = sequentialModule.wires
 
-  override def assignments: Set[Assignment] = sequentialModule.assignments ++ _pseudo_inputs_assignments ++ _pseudo_outputs_assignments
+  override def assignments: Set[Assignment] = _assignments
 
-  override def instances: TreeMap[String, Instance] = sequentialModule.instances ++ _pseudo_inputs_inverter_instances
+  override def instances: TreeMap[String, Instance] = _instances
 
   def primaryInputs: Set[Wire] = sequentialModule.inputs
 
