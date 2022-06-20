@@ -26,8 +26,10 @@ class EjectedModule(sequentialModule: SequentialModule) extends Module {
     }
   }
 
-  private val _inputs: Set[Wire] = sequentialModule.inputs -- Wire.scanWires() ++ _pseudo_inputs
-  private val _outputs: Set[Wire] = sequentialModule.outputs -- Wire.scanWires() ++ _pseudo_outputs
+  private val _primary_inputs: Set[Wire] = sequentialModule.inputs -- Wire.scanWires()
+  private val _primary_outputs: Set[Wire] = sequentialModule.outputs -- Wire.scanWires()
+  private val _inputs: Set[Wire] = _primary_inputs ++ _pseudo_inputs
+  private val _outputs: Set[Wire] = _primary_outputs ++ _pseudo_outputs
   private val _assignments: Set[Assignment] =
     sequentialModule.assignments.filterNot(x => x.left_wire.ident.equals("test_so")) ++
       _pseudo_inputs_assignments ++
@@ -48,9 +50,9 @@ class EjectedModule(sequentialModule: SequentialModule) extends Module {
 
   override def instances: TreeMap[String, Instance] = _instances
 
-  def primaryInputs: Set[Wire] = sequentialModule.inputs
+  def primaryInputs: Set[Wire] = _inputs
 
-  def primaryOutputs: Set[Wire] = sequentialModule.outputs
+  def primaryOutputs: Set[Wire] = _outputs
 
   def pseudoInputs: Set[Wire] = _pseudo_inputs
 
