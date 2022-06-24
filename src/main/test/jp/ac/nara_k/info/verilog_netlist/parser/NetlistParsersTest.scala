@@ -5,9 +5,8 @@ import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst
 import jp.ac.nara_k.info.verilog_netlist.parser.input.NetlistTokenReader
 import jp.ac.nara_k.info.verilog_netlist.parser.lexical.StdNetlistLexical
 import jp.ac.nara_k.info.verilog_netlist.parser.semantic.AnalyzedSingleAssignmentOnlyModule
+import jp.ac.nara_k.info.verilog_netlist.time_expansion.AnyModule
 import org.scalatest.funsuite.AnyFunSuite
-
-import scala.io.Source
 
 class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
 
@@ -129,15 +128,6 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
     )
   }
 
-  test("NetlistParsers.parseISCAS") {
-    val source = Source.fromFile("b17_net.v")
-    val b02_net = source.getLines().mkString("\n")
-    source.close()
-    val parseResult = module(genTokenReader(b02_net)).get
-    val analyzedModule = new AnalyzedSingleAssignmentOnlyModule(parseResult)
-    val moduleGraph = new SingleAssignmentOnlyAcyclicModuleGraph(analyzedModule)
-  }
-
   test("NetlistParsers.parseMinimal") {
     val netlist =
       """
@@ -159,7 +149,8 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
         |""".stripMargin
     val parseResult = module(genTokenReader(netlist)).get
     val analyzedModule = new AnalyzedSingleAssignmentOnlyModule(parseResult)
-    val moduleGraph = new SingleAssignmentOnlyAcyclicModuleGraph(analyzedModule)
+    val netlistModule = new AnyModule(analyzedModule)
+    val moduleGraph = new SingleAssignmentOnlyAcyclicModuleGraph(netlistModule)
     //    println(moduleGraph)
     assert(moduleGraph.search("x__0") == Set("P1", "P3", "x__0", "z__0", "n__0"))
     assert(moduleGraph.search("y__0") == Set("P1", "P3", "y__0", "z__0", "n__0"))

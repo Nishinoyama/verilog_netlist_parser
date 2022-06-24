@@ -1,12 +1,12 @@
 package jp.ac.nara_k.info.verilog_netlist.time_expansion
 
-import jp.ac.nara_k.info.verilog_netlist.time_expansion.unit.{Assignment, Instance, Wire, PortConnection}
+import jp.ac.nara_k.info.verilog_netlist.time_expansion.unit.{Assignment, Instance, PortConnection, Wire}
 
 import scala.collection.immutable.TreeMap
 
 class EjectedModule(sequentialModule: SequentialModule) extends NetlistModule {
 
-  private val ff_count = sequentialModule.ff_instances.size
+  private val ff_count = sequentialModule.ffInstances.size
   private val _pseudo_inputs = (0 until ff_count).map(i => Wire(f"__pseudo_input_$i%05d")).toSet
   private val _pseudo_outputs = (0 until ff_count).map(i => Wire(f"__pseudo_output_$i%05d")).toSet
 
@@ -19,7 +19,7 @@ class EjectedModule(sequentialModule: SequentialModule) extends NetlistModule {
   }
 
   private def dFFConnectedWires(port: String) =
-    sequentialModule.ff_instances.map(x => x._2.wireConnectedPort(port))
+    sequentialModule.ffInstances.map(x => x._2.wireConnectedPort(port))
 
   private val _pseudo_inputs_inverter_instances = {
     _pseudo_inputs.zip(dFFConnectedWires("QN")).collect {
@@ -35,7 +35,7 @@ class EjectedModule(sequentialModule: SequentialModule) extends NetlistModule {
       _pseudo_inputs_assignments ++
       _pseudo_outputs_assignments
   private val _instances: TreeMap[String, Instance] =
-    sequentialModule.instances.filterNot(x => x._2.portConnections.exists(y => Wire.scanWires().contains(y.wire))) ++
+    sequentialModule.combInstances.filterNot(x => x._2.port_connections.exists(y => Wire.scanWires().contains(y.wire))) ++
       _pseudo_inputs_inverter_instances
 
   override def name: String = sequentialModule.name

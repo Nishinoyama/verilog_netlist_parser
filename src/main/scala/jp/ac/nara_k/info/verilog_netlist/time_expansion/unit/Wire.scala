@@ -7,6 +7,8 @@ class Wire(_ident: String) {
 
   def ident: String = _ident
 
+  def isConst: Boolean = false
+
   override def hashCode(): Int = this.ident.hashCode
 
   override def equals(obj: Any): Boolean = obj match {
