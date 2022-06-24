@@ -2,7 +2,7 @@ package jp.ac.nara_k.info.verilog_netlist.time_expansion
 
 import scala.collection.immutable.TreeMap
 
-class EjectedModule(sequentialModule: SequentialModule) extends Module {
+class EjectedModule(sequentialModule: SequentialModule) extends NetlistModule {
 
   private val ff_count = sequentialModule.ff_instances.size
   private val _pseudo_inputs = (0 until ff_count).map(i => Wire(f"__pseudo_input_$i%05d")).toSet

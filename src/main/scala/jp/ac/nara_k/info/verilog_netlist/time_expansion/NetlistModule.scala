@@ -1,6 +1,6 @@
 package jp.ac.nara_k.info.verilog_netlist.time_expansion
 
-trait Module {
+trait NetlistModule {
   def name: String
 
   def inputs: Set[Wire]

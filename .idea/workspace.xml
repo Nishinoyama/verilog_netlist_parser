@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="fix: zero padding for ppi/ppo">
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="fix: assignment is up side down!!!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/b17_net.v" beforeDir="false" afterPath="$PROJECT_DIR$/b17_net.v" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Assignment.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Assignment.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/EjectedModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/EjectedModule.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Instance.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Instance.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Module.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Module.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/PortConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/PortConnection.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Wire.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/Wire.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +72,12 @@
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
+    "WebServerToolWindowFactoryState": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
+    "WebServerToolWindowPanel.toolwindow.show.date": "false",
+    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
+    "WebServerToolWindowPanel.toolwindow.show.size": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "last_directory_selection": "C:/Users/nakayama/IdeaProjects/verilog_netlist_parser/src/main/test/jp/ac/nara_k/info/verilog_netlist",
@@ -87,7 +86,8 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "web.server"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -217,7 +217,9 @@
       <workItem from="1654493656379" duration="7147000" />
       <workItem from="1654756552963" duration="14548000" />
       <workItem from="1655089178149" duration="11049000" />
-      <workItem from="1655340591753" duration="14266000" />
+      <workItem from="1655340591753" duration="14964000" />
+      <workItem from="1655773724061" duration="646000" />
+      <workItem from="1656052633496" duration="2618000" />
     </task>
     <task id="LOCAL-00001" summary="idea: specify test directory">
       <created>1652423252083</created>
@@ -520,7 +522,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655370736567</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="fix: assignment is up side down!!!">
+      <created>1655372531459</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1655372531459</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -550,7 +559,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="move: top module" />
     <MESSAGE value="add: relation that whether the two subgraph have common nodes" />
     <MESSAGE value="version: 0.3.1" />
     <MESSAGE value="fix: prior longer tokens" />
@@ -575,7 +583,8 @@
     <MESSAGE value="fix: zero padding for ppi" />
     <MESSAGE value="fix: zero padding for ppi/o" />
     <MESSAGE value="fix: zero padding for ppi/ppo" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: zero padding for ppi/ppo" />
+    <MESSAGE value="fix: assignment is up side down!!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: assignment is up side down!!!" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
