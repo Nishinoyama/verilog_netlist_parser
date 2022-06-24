@@ -13,3 +13,9 @@ class SequentialModule(singleAssignmentOnlyModule: AnalyzedSingleAssignmentOnlyM
 
   def combInstances: TreeMap[String, Instance] = _comb_instances
 }
+
+object SequentialModule {
+  def apply(netlist_serial: String, ff_names: Iterable[String]): SequentialModule = {
+    new SequentialModule(AnalyzedSingleAssignmentOnlyModule(netlist_serial), ff_names)
+  }
+}

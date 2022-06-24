@@ -18,3 +18,29 @@ class AnalyzedSingleAssignmentOnlyModule(module: Module) {
 
   override def toString: String = s"inputs: $inputs\noutputs: $outputs\nwires: $wires\nassignments: $assignments\ninstantiatedModules: $instantiated_modules"
 }
+
+object AnalyzedSingleAssignmentOnlyModule {
+
+  import jp.ac.nara_k.info.verilog_netlist.parser.NetlistParsers
+  import jp.ac.nara_k.info.verilog_netlist.parser.input.NetlistTokenReader
+  import jp.ac.nara_k.info.verilog_netlist.parser.lexical.StdNetlistLexical
+
+  object netlist_parsers extends NetlistParsers
+  import netlist_parsers._
+
+  private def lex(net: String) = {
+    object lexical extends StdNetlistLexical
+    import lexical._
+    parse(tokens, net).getOrElse(List.empty)
+  }
+
+  private def genTokenReader(net: String) = {
+    new NetlistTokenReader(lex(net))
+  }
+
+  def apply(netlist_serial: String): AnalyzedSingleAssignmentOnlyModule = {
+    val parseResult = module(genTokenReader(netlist_serial)).get
+    new AnalyzedSingleAssignmentOnlyModule(parseResult)
+  }
+
+}

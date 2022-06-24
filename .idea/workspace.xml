@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: AnyModule which is the root of NetlistModule">
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: NetlistModule to Instance">
       <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/sshConfigs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/UnusedWire.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/b17_net.v" beforeDir="false" afterPath="$PROJECT_DIR$/b17_net.v" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedSingleAssignmentOnlyModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/semantic/AnalyzedSingleAssignmentOnlyModule.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/AnyModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/AnyModule.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/NetlistModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/NetlistModule.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/Assignment.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/Assignment.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/Instance.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/Instance.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/PortConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/PortConnection.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/Wire.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/Wire.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModule.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModule.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/parser/NetlistParsersTest.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/time_expansion/SequentialModuleTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/time_expansion/NetlistModuleTest.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +183,7 @@
           <option value="jp.ac.nara_k.info.verilog_netlist.parser.NetlistParsersTest" />
           <option value="jp.ac.nara_k.info.verilog_netlist.parser.lexical.NetlistLexicalTest" />
           <option value="jp.ac.nara_k.info.verilog_netlist.parser.lexical.StdNetlistLexicalTest" />
-          <option value="jp.ac.nara_k.info.verilog_netlist.time_expansion.SequentialModuleTest" />
+          <option value="jp.ac.nara_k.info.verilog_netlist.time_expansion.NetlistModuleTest" />
         </list>
       </option>
       <method v="2">
@@ -229,14 +225,7 @@
       <workItem from="1655089178149" duration="11049000" />
       <workItem from="1655340591753" duration="14964000" />
       <workItem from="1655773724061" duration="646000" />
-      <workItem from="1656052633496" duration="9352000" />
-    </task>
-    <task id="LOCAL-00002" summary="change: so we should regard NetlistTokens as unique Object">
-      <created>1652683516328</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1652683516328</updated>
+      <workItem from="1656052633496" duration="10166000" />
     </task>
     <task id="LOCAL-00003" summary="idea: dump">
       <created>1652683544277</created>
@@ -574,7 +563,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656059685875</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="add: NetlistModule to Instance">
+      <created>1656062284062</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1656062284062</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -604,7 +600,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add: b17 test&#10;&#10;we won't add b17_net.v source due to some reasons." />
     <MESSAGE value="add: b17 test&#10;&#10;we won't add ACTUAL b17_net.v source due to some reasons." />
     <MESSAGE value="fix: numercLit now process 1'[bB][01]" />
     <MESSAGE value="refactor: rep comma can be handled with repsep" />
@@ -629,7 +624,8 @@
     <MESSAGE value="refactor: adjust module location" />
     <MESSAGE value="add: Netlist trait for multi module netlist" />
     <MESSAGE value="add: AnyModule which is the root of NetlistModule" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: AnyModule which is the root of NetlistModule" />
+    <MESSAGE value="add: NetlistModule to Instance" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: NetlistModule to Instance" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

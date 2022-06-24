@@ -30,3 +30,9 @@ class AnyModule(singleAssignmentOnlyModule: AnalyzedSingleAssignmentOnlyModule) 
        |""".stripMargin
   }
 }
+
+object AnyModule {
+  def apply(netlist_serial: String): AnyModule = {
+    new AnyModule(AnalyzedSingleAssignmentOnlyModule(netlist_serial))
+  }
+}

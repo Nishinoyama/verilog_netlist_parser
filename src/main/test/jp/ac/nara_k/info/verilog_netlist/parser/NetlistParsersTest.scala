@@ -4,7 +4,6 @@ import jp.ac.nara_k.info.verilog_netlist.graph.SingleAssignmentOnlyAcyclicModule
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst
 import jp.ac.nara_k.info.verilog_netlist.parser.input.NetlistTokenReader
 import jp.ac.nara_k.info.verilog_netlist.parser.lexical.StdNetlistLexical
-import jp.ac.nara_k.info.verilog_netlist.parser.semantic.AnalyzedSingleAssignmentOnlyModule
 import jp.ac.nara_k.info.verilog_netlist.time_expansion.AnyModule
 import org.scalatest.funsuite.AnyFunSuite
 
@@ -147,9 +146,7 @@ class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
         |  FD2S P5 ( .D(n[0]), .Q(nz));
         |endmodule
         |""".stripMargin
-    val parseResult = module(genTokenReader(netlist)).get
-    val analyzedModule = new AnalyzedSingleAssignmentOnlyModule(parseResult)
-    val netlistModule = new AnyModule(analyzedModule)
+    val netlistModule = AnyModule(netlist)
     val moduleGraph = new SingleAssignmentOnlyAcyclicModuleGraph(netlistModule)
     //    println(moduleGraph)
     assert(moduleGraph.search("x__0") == Set("P1", "P3", "x__0", "z__0", "n__0"))
