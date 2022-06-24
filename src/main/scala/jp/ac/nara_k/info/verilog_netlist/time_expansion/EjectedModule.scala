@@ -1,5 +1,7 @@
 package jp.ac.nara_k.info.verilog_netlist.time_expansion
 
+import jp.ac.nara_k.info.verilog_netlist.time_expansion.unit.{Assignment, Instance, Wire, PortConnection}
+
 import scala.collection.immutable.TreeMap
 
 class EjectedModule(sequentialModule: SequentialModule) extends NetlistModule {

@@ -1,4 +1,4 @@
-package jp.ac.nara_k.info.verilog_netlist.time_expansion
+package jp.ac.nara_k.info.verilog_netlist.time_expansion.unit
 
 trait ConstWire extends Wire {
   def constVal: Int

@@ -1,6 +1,7 @@
 package jp.ac.nara_k.info.verilog_netlist.time_expansion
 
 import jp.ac.nara_k.info.verilog_netlist.parser.semantic.AnalyzedSingleAssignmentOnlyModule
+import jp.ac.nara_k.info.verilog_netlist.time_expansion.unit.{Assignment, Instance, Wire}
 
 import scala.collection.immutable.TreeMap
 
