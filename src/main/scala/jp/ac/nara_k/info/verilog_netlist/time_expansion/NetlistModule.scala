@@ -15,6 +15,8 @@ abstract class NetlistModule {
 
   def instances: Map[String, Instance]
 
+  def toInstance: Instance = Instance.fromNetlistModule(this)
+
   override def toString: String = {
     s"""module $name (${(inputs ++ outputs).toSeq.sorted.mkString(", ")});
        |  input ${inputs.toSeq.sorted.mkString(", ")};

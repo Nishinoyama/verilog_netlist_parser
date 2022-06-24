@@ -8,13 +8,13 @@ import scala.collection.immutable.TreeMap
 class AnyModule(singleAssignmentOnlyModule: AnalyzedSingleAssignmentOnlyModule) extends NetlistModule {
   override def name: String = singleAssignmentOnlyModule.name
 
-  override def inputs: Set[Wire] = singleAssignmentOnlyModule.inputs.map(Wire.fromAst)
+  override def inputs: Set[Wire] = singleAssignmentOnlyModule.inputs.map(Wire(_))
 
-  override def outputs: Set[Wire] = singleAssignmentOnlyModule.outputs.map(Wire.fromAst)
+  override def outputs: Set[Wire] = singleAssignmentOnlyModule.outputs.map(Wire(_))
 
-  override def wires: Set[Wire] = singleAssignmentOnlyModule.wires.map(Wire.fromAst)
+  override def wires: Set[Wire] = singleAssignmentOnlyModule.wires.map(Wire(_))
 
-  override def assignments: Set[Assignment] = singleAssignmentOnlyModule.assignments.map(Assignment.fromAst)
+  override def assignments: Set[Assignment] = singleAssignmentOnlyModule.assignments.map(Assignment(_))
 
   override def instances: TreeMap[String, Instance] = TreeMap.from(
     singleAssignmentOnlyModule.instantiated_modules.map(Instance.fromAst)

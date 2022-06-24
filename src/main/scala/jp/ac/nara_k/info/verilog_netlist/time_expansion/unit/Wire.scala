@@ -22,7 +22,7 @@ object Wire {
 
   def apply(_ident: String): Wire = new Wire(_ident)
 
-  def fromAst(singleIdentifier: Expression): Wire = singleIdentifier match {
+  def apply(singleIdentifier: Expression): Wire = singleIdentifier match {
     case SingleIdentifier(ident) => new Wire(ident)
     case Number(const) => ConstWire.fromInt(const)
   }
