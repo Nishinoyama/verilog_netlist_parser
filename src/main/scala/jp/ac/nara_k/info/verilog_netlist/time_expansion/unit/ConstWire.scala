@@ -7,7 +7,7 @@ trait ConstWire extends Wire {
 }
 
 object ConstWire {
-  def fromInt(const: Int): ConstWire = const match {
+  def apply(const: Int): ConstWire = const match {
     case 0 => Const0Wire
     case 1 => Const1Wire
   }

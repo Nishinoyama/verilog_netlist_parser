@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: Fault classes and Location classes">
+    <list default="true" id="538d4d81-964f-4bee-978a-a50da257ab85" name="変更" comment="add: fault test">
       <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/ObservableEjectedModule.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/time_expansion/fault/FaultTest.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/test/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/UnitTest.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_xml_2_13_2_1_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_modules_scala_xml_2_13_2_1_0_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_13_8_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_13_8_jar.xml" afterDir="false" />
@@ -29,16 +29,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scalatest_scalatest_refspec_2_13_3_2_12_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scalatest_scalatest_refspec_2_13_3_2_12_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scalatest_scalatest_shouldmatchers_2_13_3_2_12_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scalatest_scalatest_shouldmatchers_2_13_3_2_12_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scalatest_scalatest_wordspec_2_13_3_2_12_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scalatest_scalatest_wordspec_2_13_3_2_12_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/verilog_netlist_parser-build.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/verilog_netlist_parser-build.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/verilog_netlist_parser.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/verilog_netlist_parser.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/b17_net.v" beforeDir="false" afterPath="$PROJECT_DIR$/b17_net.v" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/token/NetlistTokens.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/parser/token/NetlistTokens.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/fault/Fault.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/fault/Fault.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/fault/LocationInstance.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/fault/LocationInstance.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/fault/LocationTop.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/fault/LocationTop.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/fault/SlowTo.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/fault/SlowTo.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/ConstWire.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/ConstWire.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/Instance.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/Instance.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/PortConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/PortConnection.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/UnusedWire.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/UnusedWire.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/Wire.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/jp/ac/nara_k/info/verilog_netlist/time_expansion/unit/Wire.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,6 +208,7 @@
           <option value="jp.ac.nara_k.info.verilog_netlist.parser.lexical.NetlistLexicalTest" />
           <option value="jp.ac.nara_k.info.verilog_netlist.parser.lexical.StdNetlistLexicalTest" />
           <option value="jp.ac.nara_k.info.verilog_netlist.time_expansion.NetlistModuleTest" />
+          <option value="jp.ac.nara_k.info.verilog_netlist.time_expansion.unit.UnitTest" />
           <option value="jp.ac.nara_k.info.verilog_netlist.time_expansion.fault.FaultTest" />
         </list>
       </option>
@@ -252,21 +252,7 @@
       <workItem from="1655340591753" duration="14964000" />
       <workItem from="1655773724061" duration="646000" />
       <workItem from="1656052633496" duration="10166000" />
-      <workItem from="1656566407748" duration="1709000" />
-    </task>
-    <task id="LOCAL-00004" summary="change: package hierarchy, inferior to verilog_netlist">
-      <created>1652684078596</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1652684078596</updated>
-    </task>
-    <task id="LOCAL-00005" summary="add: now, tokens are parse-able">
-      <created>1652937017897</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1652937017897</updated>
+      <workItem from="1656566407748" duration="6130000" />
     </task>
     <task id="LOCAL-00006" summary="add: netlist modules and their miscellanies">
       <created>1652952122500</created>
@@ -597,7 +583,21 @@
       <option name="project" value="LOCAL" />
       <updated>1656408592000</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="add: fault test">
+      <created>1656568192592</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1656568192594</updated>
+    </task>
+    <task id="LOCAL-00054" summary="add: fault test">
+      <created>1656568233513</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1656568233513</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -627,7 +627,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix: numercLit now process 1'[bB][01]" />
     <MESSAGE value="refactor: rep comma can be handled with repsep" />
     <MESSAGE value="add: tests for NetlistParsers but partially." />
     <MESSAGE value="refactor: curried function makes test flexible" />
@@ -652,7 +651,8 @@
     <MESSAGE value="add: AnyModule which is the root of NetlistModule" />
     <MESSAGE value="add: NetlistModule to Instance" />
     <MESSAGE value="add: Fault classes and Location classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: Fault classes and Location classes" />
+    <MESSAGE value="add: fault test" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: fault test" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

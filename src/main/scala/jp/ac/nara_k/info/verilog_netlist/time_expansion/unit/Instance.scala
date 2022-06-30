@@ -15,7 +15,7 @@ class Instance(val module_name: String, val port_connections: Seq[PortConnection
 
 object Instance {
   def fromNetlistModule(module: NetlistModule): Instance = {
-    Instance(module.name, module.inputs.concat(module.outputs).map(PortConnection(_)).toSeq)
+    Instance(module.name, module.inputs.concat(module.outputs).map(PortConnection.fromWire).toSeq)
   }
 
   def apply(module_name: String, port_connections: Seq[PortConnection]): Instance = new Instance(module_name, port_connections)

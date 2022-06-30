@@ -9,6 +9,8 @@ class Wire(_ident: String) {
 
   def isConst: Boolean = false
 
+  def isValid: Boolean = true
+
   override def hashCode(): Int = this.ident.hashCode
 
   override def equals(obj: Any): Boolean = obj match {
@@ -24,7 +26,7 @@ object Wire {
 
   def apply(singleIdentifier: Expression): Wire = singleIdentifier match {
     case SingleIdentifier(ident) => new Wire(ident)
-    case Number(const) => ConstWire.fromInt(const)
+    case Number(const) => ConstWire(const)
   }
 
   def scanWires(): Set[Wire] = {
