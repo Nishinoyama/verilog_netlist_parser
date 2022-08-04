@@ -1,23 +1,23 @@
 package jp.ac.nara_k.info.verilog_netlist.time_expansion
 
-import jp.ac.nara_k.info.verilog_netlist.parser.semantic.AnalyzedSingleAssignmentOnlyModule
+import jp.ac.nara_k.info.verilog_netlist.parser.semantic.SinglizedModule
 import jp.ac.nara_k.info.verilog_netlist.time_expansion.unit.{Assignment, Instance, Wire}
 
 import scala.collection.immutable.TreeMap
 
-class AnyModule(singleAssignmentOnlyModule: AnalyzedSingleAssignmentOnlyModule) extends NetlistModule {
-  override def name: String = singleAssignmentOnlyModule.name
+class AnyModule(singlizedModule: SinglizedModule) extends NetlistModule {
+  override def name: String = singlizedModule.name
 
-  override def inputs: Set[Wire] = singleAssignmentOnlyModule.inputs.map(Wire(_))
+  override def inputs: Set[Wire] = singlizedModule.inputs.map(Wire(_))
 
-  override def outputs: Set[Wire] = singleAssignmentOnlyModule.outputs.map(Wire(_))
+  override def outputs: Set[Wire] = singlizedModule.outputs.map(Wire(_))
 
-  override def wires: Set[Wire] = singleAssignmentOnlyModule.wires.map(Wire(_))
+  override def wires: Set[Wire] = singlizedModule.wires.map(Wire(_))
 
-  override def assignments: Set[Assignment] = singleAssignmentOnlyModule.assignments.map(Assignment(_))
+  override def assignments: Set[Assignment] = singlizedModule.assignments.map(Assignment(_))
 
   override def instances: TreeMap[String, Instance] = TreeMap.from(
-    singleAssignmentOnlyModule.instantiated_modules.map(Instance.fromAst)
+    singlizedModule.instantiated_modules.map(Instance.fromAst)
   )
 
   override def toString: String = {
@@ -32,7 +32,7 @@ class AnyModule(singleAssignmentOnlyModule: AnalyzedSingleAssignmentOnlyModule) 
 }
 
 object AnyModule {
-  def apply(netlist_serial: String): AnyModule = {
-    new AnyModule(AnalyzedSingleAssignmentOnlyModule(netlist_serial))
-  }
+  def apply(netlist_serial: String): AnyModule = new AnyModule(SinglizedModule(netlist_serial))
+
+  def apply(singlizedModule: SinglizedModule): AnyModule = new AnyModule(singlizedModule)
 }

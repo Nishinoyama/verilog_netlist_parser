@@ -3,7 +3,7 @@ package jp.ac.nara_k.info.verilog_netlist.parser.semantic
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.ArrayedIndexedIntoSingleIdentifier._
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst._
 
-class AnalyzedSingleAssignmentOnlyModule(module: Module) {
+class SinglizedModule(module: Module) {
   val name: String = module.name
 
   val inputs: Set[SingleIdentifier] = module.inputs.flatMap(convertSingles).toSet
@@ -19,7 +19,7 @@ class AnalyzedSingleAssignmentOnlyModule(module: Module) {
   override def toString: String = s"inputs: $inputs\noutputs: $outputs\nwires: $wires\nassignments: $assignments\ninstantiatedModules: $instantiated_modules"
 }
 
-object AnalyzedSingleAssignmentOnlyModule {
+object SinglizedModule {
 
   import jp.ac.nara_k.info.verilog_netlist.parser.NetlistParsers
   import jp.ac.nara_k.info.verilog_netlist.parser.input.NetlistTokenReader
@@ -38,9 +38,9 @@ object AnalyzedSingleAssignmentOnlyModule {
     new NetlistTokenReader(lex(net))
   }
 
-  def apply(netlist_serial: String): AnalyzedSingleAssignmentOnlyModule = {
+  def apply(netlist_serial: String): SinglizedModule = {
     val parseResult = module(genTokenReader(netlist_serial)).get
-    new AnalyzedSingleAssignmentOnlyModule(parseResult)
+    new SinglizedModule(parseResult)
   }
 
 }
