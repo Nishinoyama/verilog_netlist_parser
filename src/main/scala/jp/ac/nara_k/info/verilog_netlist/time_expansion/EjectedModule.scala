@@ -1,6 +1,7 @@
 package jp.ac.nara_k.info.verilog_netlist.time_expansion
 
-import jp.ac.nara_k.info.verilog_netlist.time_expansion.unit.{Assignment, Instance, PortConnection, Wire}
+import jp.ac.nara_k.info.verilog_netlist.netlist.{Combinational, NetlistModule, SequentialModule, unit}
+import jp.ac.nara_k.info.verilog_netlist.netlist.unit.{Assignment, Instance, PortConnection, Wire}
 
 import scala.collection.immutable.TreeMap
 
@@ -14,17 +15,17 @@ class EjectedModule(sequentialModule: SequentialModule) extends NetlistModule wi
     sequentialModule.ffInstances.values.map(x => x.wireConnectedPort(port))
 
   private val _pseudo_inputs_assignments = _pseudo_inputs.zip(dFFConnectedWires("Q")).map {
-    case (x, Some(y)) => Assignment(y, x)
+    case (x, Some(y)) => unit.Assignment(y, x)
   }
 
   private val _pseudo_outputs_assignments = _pseudo_outputs.zip(dFFConnectedWires("D")).map {
-    case (x, Some(y)) => Assignment(x, y)
+    case (x, Some(y)) => unit.Assignment(x, y)
   }
 
   private val _pseudo_inputs_inverter_instances = {
     _pseudo_inputs.zip(dFFConnectedWires("QN")).collect {
       case (x, Some(y)) =>
-        (s"${x.ident.toUpperCase}_INV", Instance("IVI", List(PortConnection("A", x), PortConnection("Z", y))))
+        (s"${x.ident.toUpperCase}_INV", Instance("IVI", List(PortConnection("A", x), unit.PortConnection("Z", y))))
     }
   }
 

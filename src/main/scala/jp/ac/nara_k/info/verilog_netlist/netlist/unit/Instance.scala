@@ -1,7 +1,7 @@
-package jp.ac.nara_k.info.verilog_netlist.time_expansion.unit
+package jp.ac.nara_k.info.verilog_netlist.netlist.unit
 
+import jp.ac.nara_k.info.verilog_netlist.netlist.NetlistModule
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.ModuleInstance
-import jp.ac.nara_k.info.verilog_netlist.time_expansion.NetlistModule
 
 class Instance(val module_name: String, val port_connections: Seq[PortConnection]) {
   def name: String = module_name

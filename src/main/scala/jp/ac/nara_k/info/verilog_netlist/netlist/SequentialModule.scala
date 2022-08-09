@@ -1,6 +1,6 @@
-package jp.ac.nara_k.info.verilog_netlist.time_expansion
+package jp.ac.nara_k.info.verilog_netlist.netlist
 
-import jp.ac.nara_k.info.verilog_netlist.time_expansion.unit.{Assignment, Instance, Wire}
+import jp.ac.nara_k.info.verilog_netlist.netlist.unit.{Assignment, Instance, Wire}
 
 import scala.collection.immutable.TreeMap
 

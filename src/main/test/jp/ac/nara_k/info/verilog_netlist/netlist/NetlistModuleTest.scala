@@ -1,5 +1,6 @@
-package jp.ac.nara_k.info.verilog_netlist.time_expansion
+package jp.ac.nara_k.info.verilog_netlist.netlist
 
+import jp.ac.nara_k.info.verilog_netlist.time_expansion.EjectedModule
 import org.scalatest.funsuite.AnyFunSuite
 
 import scala.io.Source

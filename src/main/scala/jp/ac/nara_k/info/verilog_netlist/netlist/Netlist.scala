@@ -1,4 +1,4 @@
-package jp.ac.nara_k.info.verilog_netlist.time_expansion
+package jp.ac.nara_k.info.verilog_netlist.netlist
 
 abstract class Netlist {
   def top_module: NetlistModule
