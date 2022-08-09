@@ -4,7 +4,7 @@ import jp.ac.nara_k.info.verilog_netlist.graph.SingleAssignmentOnlyAcyclicModule
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst
 import jp.ac.nara_k.info.verilog_netlist.parser.input.NetlistTokenReader
 import jp.ac.nara_k.info.verilog_netlist.parser.lexical.StdNetlistLexical
-import jp.ac.nara_k.info.verilog_netlist.time_expansion.AnyModule
+import jp.ac.nara_k.info.verilog_netlist.netlist.AnyModule
 import org.scalatest.funsuite.AnyFunSuite
 
 class NetlistParsersTest extends AnyFunSuite with NetlistParsers {
