@@ -10,6 +10,9 @@ class EjectedModule(sequentialModule: SequentialModule) extends NetlistModule wi
   private val _pseudo_inputs = (0 until ff_count).map(i => Wire(f"__pseudo_input_$i%05d")).toSet
   private val _pseudo_outputs = (0 until ff_count).map(i => Wire(f"__pseudo_output_$i%05d")).toSet
 
+  private def dFFConnectedWires(port: String) =
+    sequentialModule.ffInstances.values.map(x => x.wireConnectedPort(port))
+
   private val _pseudo_inputs_assignments = _pseudo_inputs.zip(dFFConnectedWires("Q")).map {
     case (x, Some(y)) => Assignment(y, x)
   }
@@ -17,9 +20,6 @@ class EjectedModule(sequentialModule: SequentialModule) extends NetlistModule wi
   private val _pseudo_outputs_assignments = _pseudo_outputs.zip(dFFConnectedWires("D")).map {
     case (x, Some(y)) => Assignment(x, y)
   }
-
-  private def dFFConnectedWires(port: String) =
-    sequentialModule.ffInstances.map(x => x._2.wireConnectedPort(port))
 
   private val _pseudo_inputs_inverter_instances = {
     _pseudo_inputs.zip(dFFConnectedWires("QN")).collect {
