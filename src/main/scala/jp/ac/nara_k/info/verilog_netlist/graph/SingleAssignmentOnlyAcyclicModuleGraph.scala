@@ -1,11 +1,9 @@
 package jp.ac.nara_k.info.verilog_netlist.graph
 
-import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst._
-import jp.ac.nara_k.info.verilog_netlist.parser.semantic.AnalyzedSingleAssignmentOnlyModule
-
+import jp.ac.nara_k.info.verilog_netlist.netlist.NetlistModule
 import scala.collection.mutable
 
-class SingleAssignmentOnlyAcyclicModuleGraph(module: AnalyzedSingleAssignmentOnlyModule) extends NetlistGraph[String] {
+class SingleAssignmentOnlyAcyclicModuleGraph(module: NetlistModule) extends NetlistGraph[String] {
 
   override val output_port_names: mutable.HashSet[String] = mutable.HashSet.from(List("Z"))
   override val ff_names: mutable.HashSet[String] = mutable.HashSet.from(List("FD2S"))
@@ -14,27 +12,25 @@ class SingleAssignmentOnlyAcyclicModuleGraph(module: AnalyzedSingleAssignmentOnl
   nodes ++= module.inputs.map(_.ident)
   nodes ++= module.outputs.map(_.ident)
   nodes ++= module.wires.map(_.ident)
-  nodes ++= module.instantiated_modules.map(_.declaration.ident)
+  nodes ++= module.instances.keys
 
   override val edges: mutable.HashMap[String, mutable.HashSet[String]] = mutable.HashMap.from(nodes.map((_, mutable.HashSet.empty)))
 
-  module.instantiated_modules.foreach {
-    case ModuleInstance(module_name, SingleIdentifier(module_ident), ports_connect) =>
-      if (!ff_names.contains(module_name)) {
-        ports_connect.foreach {
-          case (port, SingleIdentifier(wire_ident)) =>
-            if (output_port_names.contains(port))
-              edges(module_ident).add(wire_ident)
+  module.instances.foreach {
+    case (instance_ident, instance) =>
+      if (!ff_names.contains(instance.module_name)) {
+        instance.port_connections.foreach(port_connection =>
+          if (!port_connection.wire.isConst)
+            if (output_port_names.contains(port_connection.port))
+              edges(instance_ident) += port_connection.wire.ident
             else
-              edges(wire_ident).add(module_ident)
-          case _ => ()
-        }
+              edges(port_connection.wire.ident) += instance_ident
+        )
       }
   }
-  module.assignments.foreach {
-    case SingleAssignment(SingleIdentifier(lvalue), SingleIdentifier(ident)) => edges(lvalue) += ident
-    case _ => ()
-  }
+  module.assignments.filterNot(_.right_wire.isConst).foreach(assignment =>
+    edges(assignment.left_wire.ident) += assignment.right_wire.ident
+  )
 
   override def toString: String = {
     s"$nodes\n${edges.filter(x => x._2.nonEmpty)}"
