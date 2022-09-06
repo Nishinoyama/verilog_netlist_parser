@@ -2,14 +2,14 @@ package jp.ac.nara_k.info.verilog_netlist.netlist.unit
 
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.{Expression, Number, SingleIdentifier}
 
-class Wire(_ident: String) {
+trait Wire {
   override def toString: String = s"$ident"
 
-  def ident: String = _ident
+  def ident: String
 
-  def isConst: Boolean = false
+  def isConst: Boolean
 
-  def isValid: Boolean = true
+  def isValid: Boolean
 
   override def hashCode(): Int = this.ident.hashCode
 
@@ -22,10 +22,10 @@ class Wire(_ident: String) {
 object Wire {
   implicit val wireOrdering: Ordering[Wire] = Ordering.by(_.ident)
 
-  def apply(_ident: String): Wire = new Wire(_ident)
+  def apply(_ident: String): Wire = new NamedWire(_ident)
 
   def apply(singleIdentifier: Expression): Wire = singleIdentifier match {
-    case SingleIdentifier(ident) => new Wire(ident)
+    case SingleIdentifier(ident) => new NamedWire(ident)
     case Number(const) => ConstWire(const)
   }
 
