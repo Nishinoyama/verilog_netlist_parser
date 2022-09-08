@@ -16,6 +16,11 @@ object NetlistAst {
 
   trait Expression
 
+  trait Assignment extends ModuleItem {
+    val lvalue: Identifier
+    val expression: Expression
+  }
+
   case class Module(name: String, ports: Seq[String], items: Seq[ModuleItem]) {
     def inputs: Iterable[Declaration] = items.collect {
       case InputDeclaration(input) => input
@@ -44,9 +49,11 @@ object NetlistAst {
 
   case class WireDeclaration(wire: Declaration) extends ModuleItem
 
-  case class Assignment(lvalue: Identifier, expression: Expression) extends ModuleItem
+  case class SingleAssignment(lvalue: SingleIdentifier, expression: Expression) extends Assignment
 
-  case class SingleAssignment(lvalue: SingleIdentifier, expression: Expression) extends ModuleItem
+  case class ArrayedAssignment(lvalue: ArrayedIdentifier, expression: Expression) extends Assignment
+
+  case class IndexedAssignment(lvalue: IndexedIdentifier, expression: Expression) extends Assignment
 
   //  case class ModulesDeclaration(modules: Seq[ModuleInstance]) extends ModuleItem
 
@@ -59,6 +66,15 @@ object NetlistAst {
   case class IndexedIdentifier(ident: String, index: Int) extends Identifier with Expression
 
   case class Number(value: Int) extends Expression
+
+  object Assignment {
+    def apply(lvalue: Identifier, expression: Expression): Assignment = lvalue match {
+      case lvalue: SingleIdentifier => NetlistAst.SingleAssignment(lvalue, expression)
+      case lvalue: IndexedIdentifier => NetlistAst.IndexedAssignment(lvalue, expression)
+      case lvalue: ArrayedIdentifier => NetlistAst.ArrayedAssignment(lvalue, expression)
+    }
+  }
+
 
   object ArrayedIndexedIntoSingleIdentifier {
 
@@ -86,13 +102,14 @@ object NetlistAst {
       identifiers flatMap convertSingles
     }
 
-    def convertAssignment(assignment: Assignment): SingleAssignment = assignment match {
-      case Assignment(lvalue, expression) => SingleAssignment(convertNonArrayed(lvalue), convertExpression(expression))
+    def convertAssignment(assignment: Assignment): Iterable[SingleAssignment] = assignment match {
+      case ArrayedAssignment(lvalue, expression) => ???
+      case assigment => List(SingleAssignment(convertNonArrayed(assigment.lvalue), convertExpression(assignment.expression)))
     }
 
-    def convertInstance(instance: ModuleInstance): ModuleInstance = instance match {
+    def convertInstance(instance: ModuleInstance): Iterable[ModuleInstance] = instance match {
       case ModuleInstance(name, identifier: Identifier, port_connections) =>
-        ModuleInstance(name, convertNonArrayed(identifier), port_connections.map(convertPortConnection))
+        List(ModuleInstance(name, convertNonArrayed(identifier), port_connections.map(convertPortConnection)))
     }
 
     def convertPortConnection(port_connection: (String, Expression)): (String, Expression) = port_connection match {
@@ -100,4 +117,5 @@ object NetlistAst {
     }
 
   }
+
 }

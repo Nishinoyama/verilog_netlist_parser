@@ -3,18 +3,18 @@ package jp.ac.nara_k.info.verilog_netlist.parser.semantic
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst.ArrayedIndexedIntoSingleIdentifier._
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst._
 
-class SinglizedModule(module: Module) {
+class SinglizedModule(module: Module) extends AnalyzedModule[SingleIdentifier, SingleAssignment, ModuleInstance] {
   val name: String = module.name
 
-  val inputs: Set[SingleIdentifier] = module.inputs.flatMap(convertSingles).toSet
+  override val inputs: Set[SingleIdentifier] = module.inputs.flatMap(convertSingles).toSet
 
-  val outputs: Set[SingleIdentifier] = module.outputs.flatMap(convertSingles).toSet
+  override val outputs: Set[SingleIdentifier] = module.outputs.flatMap(convertSingles).toSet
 
-  val wires: Set[SingleIdentifier] = module.wires.flatMap(convertSingles).toSet
+  override val wires: Set[SingleIdentifier] = module.wires.flatMap(convertSingles).toSet
 
-  val assignments: Set[SingleAssignment] = module.assignments.map(convertAssignment).toSet
+  override val assignments: Set[SingleAssignment] = module.assignments.flatMap(convertAssignment).toSet
 
-  val instantiated_modules: Set[ModuleInstance] = module.instances.map(convertInstance).toSet
+  override val instantiated_modules: Set[ModuleInstance] = module.instances.flatMap(convertInstance).toSet
 
   override def toString: String = s"inputs: $inputs\noutputs: $outputs\nwires: $wires\nassignments: $assignments\ninstantiatedModules: $instantiated_modules"
 }

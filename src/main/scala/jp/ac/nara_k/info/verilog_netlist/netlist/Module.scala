@@ -5,7 +5,7 @@ import jp.ac.nara_k.info.verilog_netlist.parser.semantic.SinglizedModule
 
 import scala.collection.immutable.TreeMap
 
-class AnyModule(singlizedModule: SinglizedModule) extends NetlistModule {
+class Module(singlizedModule: SinglizedModule) extends NetlistModule {
   override def name: String = singlizedModule.name
 
   override def inputs: Set[Wire] = singlizedModule.inputs.map(Wire(_))
@@ -31,8 +31,8 @@ class AnyModule(singlizedModule: SinglizedModule) extends NetlistModule {
   }
 }
 
-object AnyModule {
-  def apply(netlist_serial: String): AnyModule = new AnyModule(SinglizedModule(netlist_serial))
+object Module {
+  def apply(netlist_serial: String): Module = new Module(SinglizedModule(netlist_serial))
 
-  def apply(singlizedModule: SinglizedModule): AnyModule = new AnyModule(singlizedModule)
+  def apply(singlizedModule: SinglizedModule): Module = new Module(singlizedModule)
 }

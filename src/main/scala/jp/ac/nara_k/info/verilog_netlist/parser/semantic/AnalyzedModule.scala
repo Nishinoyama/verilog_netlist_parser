@@ -2,24 +2,14 @@ package jp.ac.nara_k.info.verilog_netlist.parser.semantic
 
 import jp.ac.nara_k.info.verilog_netlist.parser.ast.NetlistAst._
 
-class AnalyzedModule(module: Module) {
-  val inputs: Set[InputDeclaration] = module.items.collect {
-    case input: InputDeclaration => input
-  }.toSet
+abstract class AnalyzedModule[D<:Declaration, A<:Assignment, M<:ModuleInstance] {
+  val inputs: Set[D]
 
-  val outputs: Set[OutputDeclaration] = module.items.collect {
-    case output: OutputDeclaration => output
-  }.toSet
+  val outputs: Set[D]
 
-  val wires: Set[WireDeclaration] = module.items.collect {
-    case wire: WireDeclaration => wire
-  }.toSet
+  val wires: Set[D]
 
-  val assignments: Set[Assignment] = module.items.collect {
-    case assign: Assignment => assign
-  }.toSet
+  val assignments: Set[A]
 
-  val instantiated_modules: Map[Declaration, ModuleInstance] = module.items.collect {
-    case instance: ModuleInstance => (instance.declaration, instance)
-  }.toMap
+  val instantiated_modules: Set[M]
 }

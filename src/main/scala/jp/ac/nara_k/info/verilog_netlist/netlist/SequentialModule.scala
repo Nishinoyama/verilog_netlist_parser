@@ -4,7 +4,7 @@ import jp.ac.nara_k.info.verilog_netlist.netlist.unit.{Assignment, Instance, Wir
 
 import scala.collection.immutable.TreeMap
 
-class SequentialModule(module: AnyModule, val ff_names: Iterable[String])
+class SequentialModule(module: Module, val ff_names: Iterable[String])
   extends NetlistModule with Sequential {
 
   override def ffInstances: TreeMap[String, Instance] = _ff_instances
@@ -28,6 +28,6 @@ class SequentialModule(module: AnyModule, val ff_names: Iterable[String])
 
 object SequentialModule {
   def apply(netlist_serial: String, ff_names: Iterable[String]): SequentialModule = {
-    new SequentialModule(AnyModule(netlist_serial), ff_names)
+    new SequentialModule(Module(netlist_serial), ff_names)
   }
 }

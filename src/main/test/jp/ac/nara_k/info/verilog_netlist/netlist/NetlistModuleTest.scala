@@ -11,9 +11,9 @@ class NetlistModuleTest extends AnyFunSuite {
     val source = Source.fromFile("b17_net.v")
     val b02_net = source.getLines().mkString("\n")
     source.close()
-    val sequentialModule = AnyModule(b02_net)
+    val sequentialModule = Module(b02_net)
     val serialized = sequentialModule.toString
-    val serSequentialModule = AnyModule(serialized)
+    val serSequentialModule = Module(serialized)
     assert(sequentialModule.toString.equals(serSequentialModule.toString))
   }
 
