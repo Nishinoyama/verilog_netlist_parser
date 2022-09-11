@@ -4,6 +4,4 @@ object Const1Wire extends ConstWire {
   override def constVal: Int = 1
 
   override def ident: String = "1"
-
-  override def isValid: Boolean = true
 }
